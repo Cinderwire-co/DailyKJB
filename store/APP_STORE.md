@@ -5,14 +5,14 @@ Everything to enter in App Store Connect, field by field. Character counts are c
 ## Before you submit
 
 1. **Signing.** Put your Apple Developer Team ID in `dailykjb/ios/Flutter/Signing.xcconfig` (copy the `.example` next to it). The file is git-ignored.
-2. **Family Controls for the extensions.** Focus Mode uses Apple's Screen Time, and Apple grants its distribution entitlement per bundle ID. The app (`com.dailykjb.dailyKjb`) has it. Its three Screen Time extensions each need their own approval before an App Store build can be signed; see [Family Controls](#family-controls) below.
-3. **Build numbers.** Every upload needs a higher build number: `version: 1.1.0+22` in `dailykjb/pubspec.yaml` means 1.1.0 (22). The extensions take their version and build number from it.
+2. **Family Controls.** Focus Mode uses Apple's Screen Time. The app and its three extensions each need Family Controls (Distribution) ticked on their identifiers; all four are. See [Family Controls](#family-controls) below.
+3. **Build numbers.** Every upload needs a higher build number: `version: 1.1.0+22` in `dailykjb/pubspec.yaml` means 1.1.0 (22), which is uploaded, so the next is `+23`. The extensions take their version and build number from it.
 4. **Upload a build:**
    ```bash
    cd dailykjb && flutter build ipa --release && cd ..
    tools/upload_ios.sh
    ```
-   The script uploads with the Apple ID signed in to Xcode. If it says "Failed to Use Accounts", sign in again in Xcode > Settings > Accounts, or drag the `.ipa` from `dailykjb/build/ios/ipa/` into Transporter and choose Deliver. The build appears under TestFlight after processing (usually 10 to 30 minutes).
+   `flutter build ipa` may end with "exportArchive Copy failed": that's a Homebrew `rsync` on the PATH, the archive is fine, and the upload script exports with the system tools. The script uploads with the Apple ID signed in to Xcode. If it says "Failed to Use Accounts", sign in again in Xcode > Settings > Accounts, or drag the `.ipa` from `dailykjb/build/ios/ipa/` into Transporter and choose Deliver. The build appears under TestFlight after processing (usually 10 to 30 minutes).
 
 ## App information
 
@@ -108,18 +108,15 @@ On devices with Apple Intelligence, the Study page (tap a verse in the Bible tab
 
 ## Family Controls
 
-Each Screen Time extension is its own bundle ID and needs Apple's **Family Controls (Distribution)** entitlement before App Store profiles for it include Family Controls. Without it, `flutter build ipa` stops at signing: the extensions ask for an entitlement their profiles don't carry. Development builds aren't affected.
+Focus Mode uses Apple's Screen Time, and every bundle that touches it needs Apple's **Family Controls (Distribution)** entitlement for App Store builds. The team is approved. Each identifier must also have the capability ticked, or its App Store profile leaves Family Controls out and `flutter build ipa` stops at signing ("Provisioning profile … doesn't include the com.apple.developer.family-controls entitlement"). Development builds aren't affected.
 
-| Bundle ID | Distribution entitlement |
+| Bundle ID | Family Controls (Distribution) |
 | --- | --- |
-| `com.dailykjb.dailyKjb` | Approved |
-| `com.dailykjb.dailyKjb.ShieldConfiguration` | Request |
-| `com.dailykjb.dailyKjb.ShieldAction` | Request |
-| `com.dailykjb.dailyKjb.DeviceActivityMonitor` | Request |
+| `com.dailykjb.dailyKjb` | Ticked |
+| `com.dailykjb.dailyKjb.ShieldConfiguration` | Ticked |
+| `com.dailykjb.dailyKjb.ShieldAction` | Ticked |
+| `com.dailykjb.dailyKjb.DeviceActivityMonitor` | Ticked |
 
-1. As the team's Account Holder, open <https://developer.apple.com/contact/request/family-controls-distribution>.
-2. Send one request per extension bundle ID, saying:
+To check or add one: developer.apple.com > Certificates, Identifiers & Profiles > Identifiers > the bundle ID > Capabilities (or Additional Capabilities) > Family Controls (Distribution) > Save. A new extension needs the same before its first App Store build.
 
-   > Daily KJB (com.dailykjb.dailyKjb, already approved for Family Controls distribution) is a Bible reading app. Its Focus Mode lets the device's own user choose apps to keep shielded each day until they've done their daily reading, using FamilyControls with .individual authorization. This bundle ID is the app's [Shield Configuration / Shield Action / Device Activity Monitor] extension: [it draws the shield's text and colors / it handles the shield's buttons, posting a local notification that opens Daily KJB / it re-applies the shields at the start of each day from a DeviceActivity schedule]. It reads only the opaque tokens the user chose and sends nothing off the device.
-
-3. Apple answers by email, usually within two weeks. Once approved, signing is automatic: Xcode makes App Store profiles that include it, and nothing in the project changes.
+If an export still says the entitlement is missing after ticking, Xcode is using an App Store profile made before the change. Move the `iOS Team Store Provisioning Profile: com.dailykjb…` files out of `~/Library/Developer/Xcode/UserData/Provisioning Profiles` and export again; Xcode fetches new ones.

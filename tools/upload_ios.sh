@@ -5,8 +5,8 @@
 #   cd dailykjb && flutter build ipa --release && cd .. && tools/upload_ios.sh
 #
 # The team ID comes from dailykjb/ios/Flutter/Signing.xcconfig (git-ignored).
-# The Screen Time extensions need Apple's Family Controls (Distribution)
-# entitlement on their own bundle IDs first: see store/APP_STORE.md.
+# The app and its Screen Time extensions each need Family Controls
+# (Distribution) ticked on their identifiers: see store/APP_STORE.md.
 # PATH is reset to the system tools because a Homebrew rsync breaks Xcode's
 # export with "Copy failed".
 set -eu
