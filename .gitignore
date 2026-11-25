@@ -1,0 +1,44 @@
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# Flutter/Dart
+dailykjb/.dart_tool/
+dailykjb/.packages
+dailykjb/.pub-cache/
+dailykjb/.pub/
+dailykjb/build/
+dailykjb/.flutter-plugins
+dailykjb/.flutter-plugins-dependencies
+
+# iOS
+dailykjb/ios/Pods/
+dailykjb/ios/.symlinks/
+dailykjb/ios/Flutter/Flutter.framework
+dailykjb/ios/Flutter/Flutter.podspec
+dailykjb/ios/Flutter/Generated.xcconfig
+dailykjb/ios/Flutter/ephemeral/
+dailykjb/ios/Flutter/flutter_export_environment.sh
+
+# Android
+dailykjb/android/.gradle/
+dailykjb/android/build/
+dailykjb/android/local.properties
+dailykjb/android/**/GeneratedPluginRegistrant.*
+
+# IDE
+.idea/
+*.iml
+.vscode/
+
+# Miscellaneous
+*.log
+*.pyc
+*.swp
+*~
+
+# Tools
+tools/.venv/
+__pycache__/

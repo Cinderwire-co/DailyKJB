@@ -1,0 +1,5 @@
+// The Screen Time extensions: the app's version and build number (from
+// pubspec.yaml, by way of Flutter) and the signing team (Signing.xcconfig,
+// git-ignored), so all four bundles match.
+#include "Generated.xcconfig"
+#include? "Signing.xcconfig"

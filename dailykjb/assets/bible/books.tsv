@@ -1,0 +1,67 @@
+id	name	testament	chapters
+1	Genesis	old	50
+2	Exodus	old	40
+3	Leviticus	old	27
+4	Numbers	old	36
+5	Deuteronomy	old	34
+6	Joshua	old	24
+7	Judges	old	21
+8	Ruth	old	4
+9	1 Samuel	old	31
+10	2 Samuel	old	24
+11	1 Kings	old	22
+12	2 Kings	old	25
+13	1 Chronicles	old	29
+14	2 Chronicles	old	36
+15	Ezra	old	10
+16	Nehemiah	old	13
+17	Esther	old	10
+18	Job	old	42
+19	Psalms	old	150
+20	Proverbs	old	31
+21	Ecclesiastes	old	12
+22	Song of Solomon	old	8
+23	Isaiah	old	66
+24	Jeremiah	old	52
+25	Lamentations	old	5
+26	Ezekiel	old	48
+27	Daniel	old	12
+28	Hosea	old	14
+29	Joel	old	3
+30	Amos	old	9
+31	Obadiah	old	1
+32	Jonah	old	4
+33	Micah	old	7
+34	Nahum	old	3
+35	Habakkuk	old	3
+36	Zephaniah	old	3
+37	Haggai	old	2
+38	Zechariah	old	14
+39	Malachi	old	4
+40	Matthew	new	28
+41	Mark	new	16
+42	Luke	new	24
+43	John	new	21
+44	Acts	new	28
+45	Romans	new	16
+46	1 Corinthians	new	16
+47	2 Corinthians	new	13
+48	Galatians	new	6
+49	Ephesians	new	6
+50	Philippians	new	4
+51	Colossians	new	4
+52	1 Thessalonians	new	5
+53	2 Thessalonians	new	3
+54	1 Timothy	new	6
+55	2 Timothy	new	4
+56	Titus	new	3
+57	Philemon	new	1
+58	Hebrews	new	13
+59	James	new	5
+60	1 Peter	new	5
+61	2 Peter	new	3
+62	1 John	new	5
+63	2 John	new	1
+64	3 John	new	1
+65	Jude	new	1
+66	Revelation	new	22
