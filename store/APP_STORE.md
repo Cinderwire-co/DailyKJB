@@ -6,7 +6,7 @@ Everything to enter in App Store Connect, field by field. Character counts are c
 
 1. **Signing.** Put your Apple Developer Team ID in `dailykjb/ios/Flutter/Signing.xcconfig` (copy the `.example` next to it). The file is git-ignored.
 2. **Family Controls.** Focus Mode uses Apple's Screen Time. The app and its three extensions each need Family Controls (Distribution) ticked on their identifiers; all four are. See [Family Controls](#family-controls) below.
-3. **Build numbers.** Every upload needs a higher build number: `version: 1.1.0+22` in `dailykjb/pubspec.yaml` means 1.1.0 (22), which is uploaded, so the next is `+23`. The extensions take their version and build number from it.
+3. **Build numbers.** Every upload needs a higher build number: `version: 1.1.0+23` in `dailykjb/pubspec.yaml` means 1.1.0 (23). Build 22 is uploaded already (without the widgets), so every new upload needs a higher number. The extensions take their version and build number from it.
 4. **Upload a build:**
    ```bash
    cd dailykjb && flutter build ipa --release && cd ..
@@ -64,6 +64,7 @@ A new Daily KJB.
 • The Bible turns like a book, a chapter to a page
 • Tap any word for Strong's Hebrew and Greek and Webster's 1828, all offline
 • Study notes, plain-English meanings and quizzes from Apple Intelligence, on your iPhone
+• Widgets for your home screen and lock screen: today's reading and the verse for today
 • Focus Mode now closes your chosen apps again each midnight, even if Daily KJB isn't opened
 • New Testament plan fixed for passages that cross chapters and books
 • The two-year plan now has reading every day
@@ -87,7 +88,7 @@ No sign-in is needed. Paste into App Review Information > Notes:
 Daily KJB is a King James Bible reading app. No account or sign-in is needed; all content is built into the app and works offline.
 
 FOCUS MODE (Screen Time / Family Controls)
-Focus Mode lets the person using the device choose apps to keep shielded each day until they have completed that day's Bible reading. It uses FamilyControls with .individual authorization, ManagedSettings to shield the chosen apps, and a DeviceActivity schedule (midnight to midnight) whose monitor extension re-applies the shields at the start of each day. The shield's "Read now" button posts a local notification that opens Daily KJB.
+Focus Mode lets the person using the device choose apps to keep shielded each day until they have completed that day's Bible reading. It uses FamilyControls with .individual authorization, ManagedSettings to shield the chosen apps, and a DeviceActivity schedule (midnight to midnight) whose monitor extension re-applies the shields at the start of each day. The shield's "Read now" button opens Daily KJB at the day's reading (on iOS earlier than 26.5, it posts a notification that does).
 
 To test:
 1. Complete the short setup (any name and plan).

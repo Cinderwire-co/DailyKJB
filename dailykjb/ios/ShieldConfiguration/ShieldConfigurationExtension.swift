@@ -3,8 +3,8 @@ import ManagedSettingsUI
 import UIKit
 
 /// What a closed app shows: the app's parchment and burnt orange, a line of
-/// scripture, and a button that sends a notification to open DailyKJB (a
-/// shield can't open another app itself).
+/// scripture, and "Read now", which opens Daily KJB at today's reading
+/// (ShieldAction/ShieldActionExtension.swift).
 class ShieldConfigurationExtension: ShieldConfigurationDataSource {
     private static let parchment = UIColor(red: 0.953, green: 0.914, blue: 0.843, alpha: 1)
     private static let ink = UIColor(red: 0.165, green: 0.118, blue: 0.082, alpha: 1)

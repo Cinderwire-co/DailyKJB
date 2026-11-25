@@ -9,6 +9,7 @@ import '../bible/kjb.dart';
 import '../models/reading.dart';
 import '../providers/app_provider.dart';
 import '../services/verse_of_day_service.dart';
+import '../services/widget_sync.dart';
 import '../ui/kit.dart';
 import '../ui/theme.dart';
 import '../utils/constants.dart';
@@ -38,12 +39,15 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     BibleNav.target.addListener(_toBible);
+    Links.latest.addListener(_follow);
+    Links.start().then((_) => _follow());
   }
 
   @override
   void dispose() {
     WidgetsBinding.instance.removeObserver(this);
     BibleNav.target.removeListener(_toBible);
+    Links.latest.removeListener(_follow);
     super.dispose();
   }
 
@@ -51,7 +55,34 @@ class _HomeScreenState extends State<HomeScreen> with WidgetsBindingObserver {
   void didChangeAppLifecycleState(AppLifecycleState state) {
     if (state == AppLifecycleState.resumed) {
       context.read<AppProvider>().onResume();
+      Links.fromShield();
     }
+  }
+
+  // Opened from a widget: the day's reading, the verse in the Bible, or a tab
+  void _follow() {
+    final uri = Links.latest.value;
+    if (uri == null || !mounted) return;
+    Links.latest.value = null;
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted) return;
+      final prov = context.read<AppProvider>();
+      Navigator.of(context).popUntil((r) => r.isFirst);
+      switch (uri.host) {
+        case 'read' when !prov.getProgress().isComplete:
+          setState(() => _tab = 0);
+          push(context, ReadingScreen(reading: prov.getTodaysReading()));
+        case 'verse':
+          final r = Kjb.ref(uri.queryParameters['ref'] ?? '');
+          if (r != null) openInBible(context, r.$1, r.$2, r.$3);
+        case 'bible':
+          setState(() => _tab = 1);
+        case 'progress':
+          setState(() => _tab = 3);
+        default:
+          setState(() => _tab = 0);
+      }
+    });
   }
 
   void _toBible() {

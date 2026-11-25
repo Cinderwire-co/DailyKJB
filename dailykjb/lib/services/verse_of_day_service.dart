@@ -4,123 +4,113 @@ import 'dart:math';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+/// A verse for each day, chosen ahead for the coming week (so the home screen
+/// widgets can turn over at midnight without the app), and not repeated within
+/// 90 days.
 class VerseOfDayService {
   static final VerseOfDayService _instance = VerseOfDayService._internal();
   factory VerseOfDayService() => _instance;
   VerseOfDayService._internal();
 
-  static const String _dateKey = 'verse_of_day_date';
-  static const String _verseKey = 'verse_of_day_verse';
-  static const String _referenceKey = 'verse_of_day_reference';
+  static const String _planKey = 'verse_of_day_plan'; // {"2026-11-25": id}
   static const String _recentVersesKey = 'verse_of_day_recent_ids';
+  // Before 1.1: the day's verse, kept by itself
+  static const String _dateKey = 'verse_of_day_date';
+  static const String _referenceKey = 'verse_of_day_reference';
   static const int _cooldownDays = 90;
+  static const int _ahead = 7;
 
-  String? _cachedVerse;
-  String? _cachedReference;
-  String? _cachedDate;
   List<Map<String, dynamic>>? _versesData;
 
   Future<void> _loadVersesData() async {
     if (_versesData != null) return;
-
     try {
-      final jsonString = await rootBundle.loadString(
-        'assets/verse_of_the_day.json',
+      final data = jsonDecode(
+        await rootBundle.loadString('assets/verse_of_the_day.json'),
       );
-      final data = jsonDecode(jsonString);
       _versesData = List<Map<String, dynamic>>.from(data['verses']);
     } catch (e) {
       _versesData = [];
     }
   }
 
-  String _getTodayString() {
-    final now = DateTime.now();
-    return '${now.year}-${now.month.toString().padLeft(2, '0')}-${now.day.toString().padLeft(2, '0')}';
-  }
+  static String _day(DateTime d) =>
+      '${d.year}-${d.month.toString().padLeft(2, '0')}-${d.day.toString().padLeft(2, '0')}';
 
-  Future<List<int>> _getRecentVerseIds() async {
+  /// The verses for today and the six days after: (date, reference, text).
+  Future<List<({String date, String reference, String verse})>> week() async {
+    await _loadVersesData();
+    final pool = _versesData!;
+    if (pool.isEmpty) return [];
     final prefs = await SharedPreferences.getInstance();
-    final recentJson = prefs.getString(_recentVersesKey);
-    if (recentJson == null) return [];
-
+    Map<String, int> plan = {};
     try {
-      return List<int>.from(jsonDecode(recentJson));
-    } catch (e) {
-      return [];
+      plan = Map<String, int>.from(
+        jsonDecode(prefs.getString(_planKey) ?? '{}') as Map,
+      );
+    } catch (_) {}
+    List<int> recent = [];
+    try {
+      recent = List<int>.from(
+        jsonDecode(prefs.getString(_recentVersesKey) ?? '[]') as List,
+      );
+    } catch (_) {}
+
+    final now = DateTime.now();
+    final today = _day(now);
+    // A verse already shown today by an earlier version stays today's
+    if (!plan.containsKey(today) && prefs.getString(_dateKey) == today) {
+      final ref = prefs.getString(_referenceKey);
+      final match = pool.where((v) => v['reference'] == ref).firstOrNull;
+      if (match != null) plan[today] = match['id'] as int;
     }
-  }
 
-  Future<void> _addToRecentVerses(int verseId) async {
-    final prefs = await SharedPreferences.getInstance();
-    final recent = await _getRecentVerseIds();
-
-    // Add new verse to front
-    recent.insert(0, verseId);
-
-    // Keep only last 90 verses (cooldown period)
+    final random = Random();
+    var changed = false;
+    final days = [
+      for (var i = 0; i < _ahead; i++)
+        _day(DateTime(now.year, now.month, now.day + i)),
+    ];
+    for (final d in days) {
+      if (plan.containsKey(d)) continue;
+      final taken = {...recent, ...plan.values};
+      final free = pool.where((v) => !taken.contains(v['id'] as int)).toList();
+      final from = free.isNotEmpty ? free : pool;
+      final id = from[random.nextInt(from.length)]['id'] as int;
+      plan[d] = id;
+      recent.insert(0, id);
+      changed = true;
+    }
+    // Days gone by are forgotten; the cooldown remembers them
+    plan.removeWhere((d, _) => d.compareTo(today) < 0);
     if (recent.length > _cooldownDays) {
-      recent.removeRange(_cooldownDays, recent.length);
+      recent = recent.sublist(0, _cooldownDays);
+    }
+    if (changed) {
+      await prefs.setString(_planKey, jsonEncode(plan));
+      await prefs.setString(_recentVersesKey, jsonEncode(recent));
     }
 
-    await prefs.setString(_recentVersesKey, jsonEncode(recent));
+    final byId = {for (final v in pool) v['id'] as int: v};
+    return [
+      for (final d in days)
+        if (byId[plan[d]] != null)
+          (
+            date: d,
+            reference: byId[plan[d]]!['reference'] as String,
+            verse: byId[plan[d]]!['text'] as String,
+          ),
+    ];
   }
 
   Future<({String verse, String reference})> getVerseOfDay() async {
-    await _loadVersesData();
-
-    final today = _getTodayString();
-
-    // Check cache first
-    if (_cachedDate == today &&
-        _cachedVerse != null &&
-        _cachedReference != null) {
-      return (verse: _cachedVerse!, reference: _cachedReference!);
+    final w = await week();
+    if (w.isEmpty) {
+      return (
+        verse: 'Thy word is a lamp unto my feet, and a light unto my path.',
+        reference: 'Psalm 119:105',
+      );
     }
-
-    final prefs = await SharedPreferences.getInstance();
-    final storedDate = prefs.getString(_dateKey);
-
-    if (storedDate == today) {
-      // Use stored verse for today
-      _cachedVerse = prefs.getString(_verseKey) ?? '';
-      _cachedReference = prefs.getString(_referenceKey) ?? '';
-      _cachedDate = today;
-    } else {
-      // Generate new verse for today - random but not repeating within 90 days
-      final recentIds = await _getRecentVerseIds();
-      final availableVerses = _versesData!
-          .where((v) => !recentIds.contains(v['id'] as int))
-          .toList();
-
-      // If all verses have been used recently, use any verse
-      final versePool = availableVerses.isNotEmpty
-          ? availableVerses
-          : _versesData!;
-      if (versePool.isEmpty) {
-        return (
-          verse: 'Thy word is a lamp unto my feet, and a light unto my path.',
-          reference: 'Psalm 119:105',
-        );
-      }
-
-      // Random selection
-      final random = Random();
-      final selected = versePool[random.nextInt(versePool.length)];
-
-      _cachedVerse = selected['text'] as String;
-      _cachedReference = selected['reference'] as String;
-      _cachedDate = today;
-
-      // Track this verse as recently used
-      await _addToRecentVerses(selected['id'] as int);
-
-      // Store for today
-      await prefs.setString(_dateKey, today);
-      await prefs.setString(_verseKey, _cachedVerse!);
-      await prefs.setString(_referenceKey, _cachedReference!);
-    }
-
-    return (verse: _cachedVerse!, reference: _cachedReference!);
+    return (verse: w.first.verse, reference: w.first.reference);
   }
 }

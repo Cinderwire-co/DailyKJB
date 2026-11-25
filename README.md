@@ -34,6 +34,7 @@ Free on iPhone and iPad. Everything works offline: no account, no cloud, no trac
 - **Every word back to the Hebrew and Greek.** Tap a word for Strong's and for Webster's 1828 together, plus cross references for every verse. Built in, so it works with no connection.
 - **Study help from Apple Intelligence.** Notes on a verse, a word's meaning in plain English, and a quiz on the day's reading, written on the device. References the model gives are checked against the Bible before they're shown. Phones without Apple Intelligence keep every other study tool.
 - **Focus Mode.** Apps you choose stay closed each day until you've read, then open the moment the day is marked read. They close again at midnight, whether or not the app is opened. An accountability partner can hold a passcode.
+- **Widgets.** Today's reading (read or not, the plan's progress, days in a row) and the verse for today, on the home screen and the lock screen. They turn over at midnight on their own; a tap opens the day's reading or the verse in the Bible.
 - **Parchment by day, lamplight by night.** Light, dark, or follow the phone.
 
 ## How Focus Mode works
@@ -48,10 +49,10 @@ flowchart LR
     read(["Day marked read"]) --> app["Daily KJB"]
     app -- "clear the shields" --> settings
     settings --> shield["Shield<br/>Read now"]
-    shield -- "notification" --> app
+    shield -- "opens today's reading" --> app
 ```
 
-The app asks for Screen Time access for the device's own user (`.individual`). The chosen apps are tokens iOS keeps private; the app can't tell which apps they are. A repeating `DeviceActivity` schedule from midnight to midnight wakes the monitor extension at the start of each day to raise the shields; marking the day read clears them until the next midnight. A shield can't open another app, so its **Read now** button posts a local notification that does.
+The app asks for Screen Time access for the device's own user (`.individual`). The chosen apps are tokens iOS keeps private; the app can't tell which apps they are. A repeating `DeviceActivity` schedule from midnight to midnight wakes the monitor extension at the start of each day to raise the shields; marking the day read clears them until the next midnight. The shield's **Read now** button opens Daily KJB at today's reading (`openParentalControlsApp`, iOS 26.5 and later); on earlier iOS a shield can't open an app, so it posts a notification that does.
 
 ## Study, offline
 
@@ -71,7 +72,7 @@ flutter run --release        # on a connected iPhone
 
 To install on your own device, copy `dailykjb/ios/Flutter/Signing.xcconfig.example` to `Signing.xcconfig` in the same folder and put your Apple Developer Team ID in it. That file is git-ignored, so your team ID never ends up in a commit. Focus Mode needs the Family Controls capability on your own App IDs (development builds work as soon as it's enabled).
 
-App Store screenshots are generated, not hand-made: `tools/screenshots.sh` launches the simulator into staged screens with demo data, and `tools/frame_screenshots.py` adds captions. The icon and the paper grain are drawn by `tools/make_icon.py` and `tools/make_grain.py`. The image scripts need Pillow and numpy:
+App Store screenshots are generated, not hand-made: `tools/screenshots.sh` launches the simulator into staged screens with demo data, and `tools/frame_screenshots.py` adds captions. The icon and the paper grain are drawn by `tools/make_icon.py` and `tools/make_grain.py`. `tools/widget_shots.swift` draws the widgets on the Mac, light and dark, to look at without a phone. The image scripts need Pillow and numpy:
 
 ```bash
 python3 -m venv tools/.venv && tools/.venv/bin/pip install pillow numpy
@@ -89,6 +90,7 @@ dailykjb/lib/
   services/         plans, highlights and notes, reminders, Apple Intelligence, Screen Time bridge
   ui/               the parchment theme and shared widgets
 dailykjb/ios/Runner/                   Screen Time manager and the Apple Intelligence bridge
+dailykjb/ios/DailyKJBWidgets/          home screen and lock screen widgets (WidgetKit)
 dailykjb/ios/DeviceActivityMonitorExtension/, ShieldConfiguration/, ShieldAction/
 dailykjb/android/                      Focus Mode on Android (usage access and an overlay)
 store/              App Store listing and screenshots

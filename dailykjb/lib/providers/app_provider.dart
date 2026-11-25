@@ -14,6 +14,7 @@ import '../services/bible_service.dart';
 import '../services/app_blocking_service.dart';
 import '../services/notification_service.dart';
 import '../services/notes_service.dart';
+import '../services/widget_sync.dart';
 import '../services/highlight_service.dart';
 import '../utils/constants.dart';
 import '../utils/notification_messages.dart';
@@ -78,6 +79,7 @@ class AppProvider extends ChangeNotifier {
     notifyListeners();
 
     if (_userData != null) {
+      WidgetSync.push(this);
       await _scheduleNotification();
       await checkAppBlocking();
     }
@@ -87,6 +89,7 @@ class AppProvider extends ChangeNotifier {
   Future<void> onResume() async {
     if (_userData == null) return;
     notifyListeners();
+    WidgetSync.push(this);
     await _scheduleNotification();
     await checkAppBlocking();
     await AiService.i.refresh();
@@ -118,6 +121,7 @@ class AppProvider extends ChangeNotifier {
   Future<void> _save() async {
     _userData!.completedUnits = _done.toList()..sort();
     await StorageService.saveUserData(_userData!);
+    WidgetSync.push(this);
   }
 
   /// Plan lengths this plan can be spread over (a chapter a day at the least).

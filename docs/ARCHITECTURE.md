@@ -56,9 +56,27 @@ AiService (Dart) ──MethodChannel com.dailykjb/ai──► AIChannel.swift �
 | Runner | `AppBlockingChannel.swift` | The `com.dailykjb/app_blocking` channel and the app picker |
 | DeviceActivityMonitor | `DeviceActivityMonitorExtension.swift` | At each midnight, raises the shields unless the day is read |
 | ShieldConfiguration | `ShieldConfigurationExtension.swift` | The shield's parchment look and words |
-| ShieldAction | `ShieldActionExtension.swift` | "Read now" posts a notification that opens the app |
+| ShieldAction | `ShieldActionExtension.swift` | "Read now" opens the app at today's reading (`.openParentalControlsApp`, iOS 26.5+; before that, a notification that opens it) |
 
 The app and extensions share an app group (`group.com.dailykjb.dailyKjb.shared`) for the selection and the day's state, and a named `ManagedSettingsStore` (`dailykjb`). `blocking_enabled` changes only when the reader turns Focus Mode on or off; reading the day clears the shields without touching it. On each open the app calls `enableBlocking` (idempotent), then `markReadingComplete` if today is read.
+
+"Read now" leaves `shield_read_now` (a timestamp) in the app group before it opens the app; `Links.fromShield()` takes it (once, within ten minutes) on launch or return and opens the day's reading.
+
+## Widgets
+
+```
+AppProvider ──► WidgetSync (lib/services/widget_sync.dart) ──channel com.dailykjb/home──► HomeScreenBridge.swift
+                  the plan, the next day to read, the streak,                               app group defaults
+                  a week of verses (VerseOfDayService.week)                                 "widget_snapshot"
+                                                                                             WidgetCenter reload
+DailyKJBWidgets (WidgetKit) ◄── Snapshot.swift reads it, works out each day of the week ahead
+```
+
+- **Today's reading** (small, medium, lock screen circular, rectangular and inline) and **The verse for today** (small, medium, large, lock screen rectangular and inline).
+- Each timeline holds a week: now, then just after each midnight. Whether a day is read, whether it's a catch-up day, and whether the streak still holds are worked out per day from the snapshot, so the widgets turn over with no help from the app. The app sends a fresh snapshot (debounced) whenever it saves, opens or comes back.
+- The verse of the day is chosen a week ahead and kept (`verse_of_day_plan`), so the app and the widget always agree.
+- A tap opens `dailykjb://read` (the next day's reading) or `dailykjb://verse?ref=…` (the Bible at that verse). `HomeScreenBridge` is a plugin registered as a Flutter scene delegate, so it sees the link whether the app was running or not; `FlutterDeepLinkingEnabled` is off so Flutter doesn't also try to route it. `HomeScreen` follows it (`Links` in `widget_sync.dart`).
+- The views (`Views.swift`, `Look.swift`) don't use WidgetKit, so `tools/widget_shots.swift` draws them on the Mac.
 
 ## App lifecycle
 

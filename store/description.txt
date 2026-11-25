@@ -25,6 +25,11 @@ On iPhones with Apple Intelligence, Daily KJB can write short study notes on a v
 FOCUS MODE: THE WORD BEFORE THE WORLD
 Choose the apps that pull you away. Each day they stay closed until you've read; mark the day read and they open at once. An accountability partner can set a passcode so Focus Mode can't be turned off on a whim. Uses Apple's Screen Time, which keeps your choices private: Daily KJB never sees which apps you choose.
 
+WIDGETS
+• Today's reading on your home screen or lock screen: what to read, whether it's done, how far through the plan you are, and your days in a row
+• The verse for today, new each morning
+• A tap opens the day's reading, or the verse in the Bible
+
 AND MORE
 • A verse for each day, to read, study, or share as a picture for a post or a story
 • Your notes and highlights in one journal, searchable

@@ -7,18 +7,31 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		AA0A1C0E2F90000100DA1C04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0A1C0E2F90000100DA1C03 /* SceneDelegate.swift */; };
+		0909D328AC920C4FF483FCE3 /* EBGaramond-Italic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2127F6279AA47DF917F8830A /* EBGaramond-Italic.ttf */; };
+		10BD7BB6FFC110B6B0832E50 /* Look.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8BD6602850E85A1752E3237D /* Look.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		16747155BBF0F4B9C3A34A44 /* EBGaramond-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1F49FE7DD926F91ED458F392 /* EBGaramond-SemiBold.ttf */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
+		576A1419CA3B433AD27DFBF4 /* Snapshot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FFF63FE717B3DCBD6665C21 /* Snapshot.swift */; };
+		5CD49D921205C01B47AF8F72 /* Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = DE840BBCDADAAC5D3DB4D393 /* Views.swift */; };
 		5D3E9F04DEBD57419C9F5810 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F909413F710DBC2FFA12D95B /* Pods_Runner.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */ = {isa = PBXBuildFile; productRef = 78A3181F2AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage */; };
+		7B22133D301DF3B3AD2353CF /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 06046069BDD4A03BBDCCAE82 /* WidgetKit.framework */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
 		AA0A1C0E2F90000100DA1C02 /* AIChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0A1C0E2F90000100DA1C01 /* AIChannel.swift */; };
+		AA0A1C0E2F90000100DA1C04 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA0A1C0E2F90000100DA1C03 /* SceneDelegate.swift */; };
 		AAAAA6C91E3AD955E25E02BF /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607196B8EC1502BC9F00F894 /* Pods_RunnerTests.framework */; };
+		BB7768F2E9D1EA288C9C0007 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 580AD262C3C14DBD0A141F78 /* Foundation.framework */; };
+		D6587D98F1C9C594882A7102 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 778090B25B282B7BE12971E6 /* Assets.xcassets */; };
+		D65CF26A5D2C8908F0CDA1D5 /* Cinzel-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 446D5BCBA118EF76264F0B46 /* Cinzel-SemiBold.ttf */; };
+		DAC0DC6AB16A5188EDEC7B60 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D267789A624B6DF56FF7264B /* SwiftUI.framework */; };
+		E79655504E52BF8AF80E0EB8 /* EBGaramond-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A7D5B68C0B244DBD226E1356 /* EBGaramond-Regular.ttf */; };
+		EB7F85C97C4DB27B62773772 /* Widgets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9EF71CD815D423D010A731AA /* Widgets.swift */; };
+		F0D12B16D38615D9EE8D8BDA /* DailyKJBWidgetsExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = A02A48B0C92EA4DF96CD3191 /* DailyKJBWidgetsExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FB9BEE3C2F37FE5D0087B5EF /* ScreenTimeManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9BEE3B2F37FE5D0087B5EF /* ScreenTimeManager.swift */; };
 		FB9BEE3D2F37FE5D0087B5EF /* AppBlockingChannel.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9BEE3A2F37FE5D0087B5EF /* AppBlockingChannel.swift */; };
 		FB9BEE412F380A000087B5EF /* ShieldConfigurationExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9BEE402F380A000087B5EF /* ShieldConfigurationExtension.swift */; };
@@ -27,6 +40,7 @@
 		FB9BEE6E2F380A110087B5EF /* ShieldActionExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FB9BEE632F380A010087B5EF /* ShieldActionExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		FB9BEE812F380A020087B5EF /* DeviceActivityMonitorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = FB9BEE802F380A020087B5EF /* DeviceActivityMonitorExtension.swift */; };
 		FB9BEE8E2F380A120087B5EF /* DeviceActivityMonitorExt.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = FB9BEE832F380A020087B5EF /* DeviceActivityMonitorExt.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		FEB63DC5D9B43CA4E9549F75 /* HomeScreenBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = 330C21AA9E34FA3CA3591263 /* HomeScreenBridge.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +50,13 @@
 			proxyType = 1;
 			remoteGlobalIDString = 97C146ED1CF9000F007C117D;
 			remoteInfo = Runner;
+		};
+		E9236CE0C04A27138A35F41A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 97C146E61CF9000F007C117D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 995DA965427E8C58658CC3FB;
+			remoteInfo = DailyKJBWidgets;
 		};
 		FB9BEE4B2F380A000087B5EF /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -80,6 +101,7 @@
 				FB9BEE4E2F380A100087B5EF /* ShieldConfigurationExt.appex in Embed Foundation Extensions */,
 				FB9BEE6E2F380A110087B5EF /* ShieldActionExt.appex in Embed Foundation Extensions */,
 				FB9BEE8E2F380A120087B5EF /* DeviceActivityMonitorExt.appex in Embed Foundation Extensions */,
+				F0D12B16D38615D9EE8D8BDA /* DailyKJBWidgetsExt.appex in Embed Foundation Extensions */,
 			);
 			name = "Embed Foundation Extensions";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -87,22 +109,29 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		AA0A1C0E2F90000100DA1C05 /* Extensions.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Extensions.xcconfig; path = Flutter/Extensions.xcconfig; sourceTree = "<group>"; };
-		AA0A1C0E2F90000100DA1C03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		06046069BDD4A03BBDCCAE82 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
+		1F49FE7DD926F91ED458F392 /* EBGaramond-SemiBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; path = "EBGaramond-SemiBold.ttf"; sourceTree = "<group>"; };
+		2127F6279AA47DF917F8830A /* EBGaramond-Italic.ttf */ = {isa = PBXFileReference; includeInIndex = 1; path = "EBGaramond-Italic.ttf"; sourceTree = "<group>"; };
 		24809D041E8C59DEBBDC1E76 /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
+		330C21AA9E34FA3CA3591263 /* HomeScreenBridge.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = HomeScreenBridge.swift; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
 		402EAFCF91FFE7DE3165C839 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
+		446D5BCBA118EF76264F0B46 /* Cinzel-SemiBold.ttf */ = {isa = PBXFileReference; includeInIndex = 1; path = "Cinzel-SemiBold.ttf"; sourceTree = "<group>"; };
+		580AD262C3C14DBD0A141F78 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		607196B8EC1502BC9F00F894 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
 		74858FAE1ED2DC5600515810 /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		778090B25B282B7BE12971E6 /* Assets.xcassets */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		78E0A7A72DC9AD7400C4905E /* FlutterGeneratedPluginSwiftPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = FlutterGeneratedPluginSwiftPackage; path = Flutter/ephemeral/Packages/FlutterGeneratedPluginSwiftPackage; sourceTree = "<group>"; };
 		7AFA3C8E1D35360C0083082E /* Release.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Release.xcconfig; path = Flutter/Release.xcconfig; sourceTree = "<group>"; };
 		80C75A05C66582B6F6085012 /* Pods-Runner.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.profile.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.profile.xcconfig"; sourceTree = "<group>"; };
+		8BD6602850E85A1752E3237D /* Look.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Look.swift; sourceTree = "<group>"; };
 		8D10042448802978F1D03D24 /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		8FFF63FE717B3DCBD6665C21 /* Snapshot.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Snapshot.swift; sourceTree = "<group>"; };
 		9740EEB21CF90195004384FC /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Debug.xcconfig; path = Flutter/Debug.xcconfig; sourceTree = "<group>"; };
 		9740EEB31CF90195004384FC /* Generated.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; name = Generated.xcconfig; path = Flutter/Generated.xcconfig; sourceTree = "<group>"; };
 		97C146EE1CF9000F007C117D /* Runner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Runner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -110,7 +139,15 @@
 		97C146FD1CF9000F007C117D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9EF71CD815D423D010A731AA /* Widgets.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Widgets.swift; sourceTree = "<group>"; };
+		A02A48B0C92EA4DF96CD3191 /* DailyKJBWidgetsExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; name = DailyKJBWidgetsExt.appex; path = DailyKJBWidgetsExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		A7D5B68C0B244DBD226E1356 /* EBGaramond-Regular.ttf */ = {isa = PBXFileReference; includeInIndex = 1; path = "EBGaramond-Regular.ttf"; sourceTree = "<group>"; };
 		AA0A1C0E2F90000100DA1C01 /* AIChannel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AIChannel.swift; sourceTree = "<group>"; };
+		AA0A1C0E2F90000100DA1C03 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		AA0A1C0E2F90000100DA1C05 /* Extensions.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; name = Extensions.xcconfig; path = Flutter/Extensions.xcconfig; sourceTree = "<group>"; };
+		AC3A2C0F1ADD67BB9BD40A83 /* DailyKJBWidgets.entitlements */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.entitlements; path = DailyKJBWidgets.entitlements; sourceTree = "<group>"; };
+		D267789A624B6DF56FF7264B /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		DE840BBCDADAAC5D3DB4D393 /* Views.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = Views.swift; sourceTree = "<group>"; };
 		E464F172250806029818ADA3 /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
 		F868DBF9A6FD219B81FBAD98 /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
 		F909413F710DBC2FFA12D95B /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,6 +166,7 @@
 		FB9BEE832F380A020087B5EF /* DeviceActivityMonitorExt.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = DeviceActivityMonitorExt.appex; sourceTree = BUILT_PRODUCTS_DIR; };
 		FB9BEE842F380A020087B5EF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		FB9BEE852F380A020087B5EF /* DeviceActivityMonitorExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = DeviceActivityMonitorExtension.entitlements; sourceTree = "<group>"; };
+		FBD2651D5496DB6416A706AC /* Info.plist */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,6 +184,16 @@
 			files = (
 				78A318202AECB46A00862997 /* FlutterGeneratedPluginSwiftPackage in Frameworks */,
 				5D3E9F04DEBD57419C9F5810 /* Pods_Runner.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E96B5C7396D663D5CD14876D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				BB7768F2E9D1EA288C9C0007 /* Foundation.framework in Frameworks */,
+				7B22133D301DF3B3AD2353CF /* WidgetKit.framework in Frameworks */,
+				DAC0DC6AB16A5188EDEC7B60 /* SwiftUI.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -219,6 +267,7 @@
 				FB9BEE872F380A020087B5EF /* DeviceActivityMonitorExtension */,
 				0EB0832A4CB14F4CB1246CEB /* Pods */,
 				9959BB7FB7DECDA303F4195E /* Frameworks */,
+				9EE0C560B2C51755027A4A3D /* DailyKJBWidgets */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,6 +279,7 @@
 				FB9BEE432F380A000087B5EF /* ShieldConfigurationExt.appex */,
 				FB9BEE632F380A010087B5EF /* ShieldActionExt.appex */,
 				FB9BEE832F380A020087B5EF /* DeviceActivityMonitorExt.appex */,
+				A02A48B0C92EA4DF96CD3191 /* DailyKJBWidgetsExt.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -250,6 +300,7 @@
 				AA0A1C0E2F90000100DA1C01 /* AIChannel.swift */,
 				AA0A1C0E2F90000100DA1C03 /* SceneDelegate.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
+				330C21AA9E34FA3CA3591263 /* HomeScreenBridge.swift */,
 			);
 			path = Runner;
 			sourceTree = "<group>";
@@ -259,8 +310,47 @@
 			children = (
 				F909413F710DBC2FFA12D95B /* Pods_Runner.framework */,
 				607196B8EC1502BC9F00F894 /* Pods_RunnerTests.framework */,
+				DAD563E88E4403DDF1007A58 /* iOS */,
+				06046069BDD4A03BBDCCAE82 /* WidgetKit.framework */,
+				D267789A624B6DF56FF7264B /* SwiftUI.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9EE0C560B2C51755027A4A3D /* DailyKJBWidgets */ = {
+			isa = PBXGroup;
+			children = (
+				9EF71CD815D423D010A731AA /* Widgets.swift */,
+				DE840BBCDADAAC5D3DB4D393 /* Views.swift */,
+				8BD6602850E85A1752E3237D /* Look.swift */,
+				8FFF63FE717B3DCBD6665C21 /* Snapshot.swift */,
+				778090B25B282B7BE12971E6 /* Assets.xcassets */,
+				FBD2651D5496DB6416A706AC /* Info.plist */,
+				AC3A2C0F1ADD67BB9BD40A83 /* DailyKJBWidgets.entitlements */,
+				DF0005C0EB9DBBACDD27EE0F /* Fonts */,
+			);
+			name = DailyKJBWidgets;
+			path = DailyKJBWidgets;
+			sourceTree = "<group>";
+		};
+		DAD563E88E4403DDF1007A58 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				580AD262C3C14DBD0A141F78 /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
+		DF0005C0EB9DBBACDD27EE0F /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				446D5BCBA118EF76264F0B46 /* Cinzel-SemiBold.ttf */,
+				A7D5B68C0B244DBD226E1356 /* EBGaramond-Regular.ttf */,
+				2127F6279AA47DF917F8830A /* EBGaramond-Italic.ttf */,
+				1F49FE7DD926F91ED458F392 /* EBGaramond-SemiBold.ttf */,
+			);
+			name = Fonts;
+			path = ../../assets/fonts;
 			sourceTree = "<group>";
 		};
 		FB9BEE472F380A000087B5EF /* ShieldConfiguration */ = {
@@ -334,6 +424,7 @@
 				FB9BEE4C2F380A000087B5EF /* PBXTargetDependency */,
 				FB9BEE6C2F380A010087B5EF /* PBXTargetDependency */,
 				FB9BEE8C2F380A020087B5EF /* PBXTargetDependency */,
+				2EF033F14F3317364AD2CC7F /* PBXTargetDependency */,
 			);
 			name = Runner;
 			packageProductDependencies = (
@@ -342,6 +433,23 @@
 			productName = Runner;
 			productReference = 97C146EE1CF9000F007C117D /* Runner.app */;
 			productType = "com.apple.product-type.application";
+		};
+		995DA965427E8C58658CC3FB /* DailyKJBWidgets */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = B03711BCC3E5FC255EB5957C /* Build configuration list for PBXNativeTarget "DailyKJBWidgets" */;
+			buildPhases = (
+				0B3ED8D6672F52F7881FE46D /* Sources */,
+				E96B5C7396D663D5CD14876D /* Frameworks */,
+				F060DBF15EF1FF4C962E5BC0 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = DailyKJBWidgets;
+			productName = DailyKJBWidgets;
+			productReference = A02A48B0C92EA4DF96CD3191 /* DailyKJBWidgetsExt.appex */;
+			productType = "com.apple.product-type.app-extension";
 		};
 		FB9BEE422F380A000087B5EF /* ShieldConfigurationExt */ = {
 			isa = PBXNativeTarget;
@@ -444,6 +552,7 @@
 				FB9BEE422F380A000087B5EF /* ShieldConfigurationExt */,
 				FB9BEE622F380A010087B5EF /* ShieldActionExt */,
 				FB9BEE822F380A020087B5EF /* DeviceActivityMonitorExt */,
+				995DA965427E8C58658CC3FB /* DailyKJBWidgets */,
 			);
 		};
 /* End PBXProject section */
@@ -464,6 +573,18 @@
 				3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */,
 				97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */,
 				97C146FC1CF9000F007C117D /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F060DBF15EF1FF4C962E5BC0 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6587D98F1C9C594882A7102 /* Assets.xcassets in Resources */,
+				D65CF26A5D2C8908F0CDA1D5 /* Cinzel-SemiBold.ttf in Resources */,
+				E79655504E52BF8AF80E0EB8 /* EBGaramond-Regular.ttf in Resources */,
+				0909D328AC920C4FF483FCE3 /* EBGaramond-Italic.ttf in Resources */,
+				16747155BBF0F4B9C3A34A44 /* EBGaramond-SemiBold.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -569,6 +690,17 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		0B3ED8D6672F52F7881FE46D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				EB7F85C97C4DB27B62773772 /* Widgets.swift in Sources */,
+				5CD49D921205C01B47AF8F72 /* Views.swift in Sources */,
+				10BD7BB6FFC110B6B0832E50 /* Look.swift in Sources */,
+				576A1419CA3B433AD27DFBF4 /* Snapshot.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		331C807D294A63A400263BE5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -587,6 +719,7 @@
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 				FB9BEE3C2F37FE5D0087B5EF /* ScreenTimeManager.swift in Sources */,
 				FB9BEE3D2F37FE5D0087B5EF /* AppBlockingChannel.swift in Sources */,
+				FEB63DC5D9B43CA4E9549F75 /* HomeScreenBridge.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -617,6 +750,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		2EF033F14F3317364AD2CC7F /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = DailyKJBWidgets;
+			target = 995DA965427E8C58658CC3FB /* DailyKJBWidgets */;
+			targetProxy = E9236CE0C04A27138A35F41A /* PBXContainerItemProxy */;
+		};
 		331C8086294A63A400263BE5 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 97C146ED1CF9000F007C117D /* Runner */;
@@ -659,6 +798,36 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		1B5BB7B6458BC26409030211 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA0A1C0E2F90000100DA1C05 /* Extensions.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = DailyKJBWidgets/DailyKJBWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DailyKJBWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dailykjb.dailyKjb.Widgets;
+				PRODUCT_NAME = DailyKJBWidgetsExt;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
 		249021D3217E4FDB00AE95B9 /* Profile */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -794,6 +963,35 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Runner.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Runner";
+			};
+			name = Profile;
+		};
+		7C6D6B3AC323F90E06EF0127 /* Profile */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA0A1C0E2F90000100DA1C05 /* Extensions.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = DailyKJBWidgets/DailyKJBWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DailyKJBWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dailykjb.dailyKjb.Widgets;
+				PRODUCT_NAME = DailyKJBWidgetsExt;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Profile;
 		};
@@ -978,6 +1176,35 @@
 				SWIFT_OBJC_BRIDGING_HEADER = "Runner/Runner-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
+			};
+			name = Release;
+		};
+		ED1D41E8FF430E9F924DF9D5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AA0A1C0E2F90000100DA1C05 /* Extensions.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CODE_SIGN_ENTITLEMENTS = DailyKJBWidgets/DailyKJBWidgets.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = "$(FLUTTER_BUILD_NUMBER)";
+				GENERATE_INFOPLIST_FILE = NO;
+				INFOPLIST_FILE = DailyKJBWidgets/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = "$(FLUTTER_BUILD_NAME)";
+				PRODUCT_BUNDLE_IDENTIFIER = com.dailykjb.dailyKjb.Widgets;
+				PRODUCT_NAME = DailyKJBWidgetsExt;
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
 		};
@@ -1241,6 +1468,16 @@
 				97C147061CF9000F007C117D /* Debug */,
 				97C147071CF9000F007C117D /* Release */,
 				249021D4217E4FDB00AE95B9 /* Profile */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		B03711BCC3E5FC255EB5957C /* Build configuration list for PBXNativeTarget "DailyKJBWidgets" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				ED1D41E8FF430E9F924DF9D5 /* Release */,
+				1B5BB7B6458BC26409030211 /* Debug */,
+				7C6D6B3AC323F90E06EF0127 /* Profile */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
