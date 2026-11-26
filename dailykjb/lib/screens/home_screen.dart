@@ -552,8 +552,9 @@ class _TodayTabState extends State<TodayTab> {
             style: p.label.copyWith(color: p.accent, fontSize: 12),
           ),
           const SizedBox(height: 8),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          // Wraps on a narrow phone, or with larger text, rather than running off
+          Wrap(
+            alignment: WrapAlignment.center,
             children: [
               for (final (icon, label, go) in [
                 (
@@ -577,10 +578,11 @@ class _TodayTabState extends State<TodayTab> {
                 Tap(
                   onTap: go,
                   padding: const EdgeInsets.symmetric(
-                    horizontal: 14,
+                    horizontal: 11,
                     vertical: 10,
                   ),
                   child: Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(icon, size: 16, color: p.accent),
                       const SizedBox(width: 5),

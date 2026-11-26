@@ -19,7 +19,7 @@ Everything to enter in App Store Connect, field by field. Character counts are c
 | Field | Value |
 | --- | --- |
 | Name (30) | `Daily KJB: King James Bible` (27) |
-| Subtitle (30) | `Reading plans & word study` (26) |
+| Subtitle (30) | `Accountability Bible reading` (28) |
 | Bundle ID | `com.dailykjb.dailyKjb` |
 | Primary category | Reference |
 | Secondary category | Books |
@@ -45,13 +45,13 @@ Free, in every territory.
 **Keywords (100):**
 
 ```
-kjv,king james,bible,reading plan,devotional,strongs,webster 1828,scripture,offline,study,verse
+kjv,king james,bible,accountability,screen time,focus,reading plan,devotional,strongs,webster 1828
 ```
 
 **Promotional text (170):**
 
 ```
-The King James Bible, a little every day. Reading plans, Strong's and Webster's 1828 built in, and Focus Mode to put the Word before the world. Works offline.
+An accountability Bible reading app: your chosen apps stay locked each day until you've read. The King James Bible, reading plans and word study, all offline.
 ```
 
 **Description:** in `store/description.txt`.
@@ -71,14 +71,40 @@ A new Daily KJB.
 • Many smaller fixes
 ```
 
+## Version number
+
+The builds are `1.1.0`. If the version page in App Store Connect says `1.0`, the builds won't appear under Build: change the version on that page to `1.1.0`.
+
+## Header and search results (Product Page Information)
+
+Made by `tools/make_banners.py` into `store/marketing/`. They lead with what Daily KJB is: an accountability Bible reading app, with the locked-app shield in front.
+
+| Tab | File | Spec |
+| --- | --- | --- |
+| Header | `header-3840x1646.png` | 21:9, 3840 × 1646 |
+| Search Results | `search-3840x2560.png` | 3:2, 3840 × 2560 |
+| Either | `universal-5244x2950.png` | 16:9, 5244 × 2950; accepted for both |
+
+In App Store Connect: the version page > Product Page Information > Header and Search Results. Pick Header or Search Results, then Upload.
+
 ## Screenshots
 
-In `store/screenshots/`, in upload order:
+Required: **iPhone 6.3"** and **iPad 13"**. The 6.9" set is optional; App Store Connect doesn't fill the 6.3" slot from it. Upload in this order: the first three show in search results, so they lead with accountability.
 
-- **iPhone 6.9"** (1320 × 2868): `iphone-6.9/01-today.jpg` to `10-share.jpg`. App Store Connect scales them for smaller iPhones.
-- **iPad 13"** (2064 × 2752): `ipad-13/01-today.jpg` to `09-bible-dark.jpg`.
+| Order | Caption | iPhone 6.3" (1206 × 2622) | iPhone 6.9" (1320 × 2868) | iPad 13" (2064 × 2752) |
+| --- | --- | --- | --- | --- |
+| 1 | An accountability Bible reading app | `iphone-6.3/01-focus.jpg` | `iphone-6.9/01-focus.jpg` | `ipad-13/01-focus.jpg` |
+| 2 | Your Bible before your apps | `iphone-6.3/02-shield.jpg` | `iphone-6.9/02-shield.jpg` | `ipad-13/02-shield.jpg` |
+| 3 | A little of the Word, every day | `iphone-6.3/03-today.jpg` | `iphone-6.9/03-today.jpg` | `ipad-13/03-today.jpg` |
+| 4 | Read it, or prove it | `iphone-6.3/04-reading.jpg` | `iphone-6.9/04-reading.jpg` | `ipad-13/04-reading.jpg` |
+| 5 | Turn the page, chapter to chapter | `iphone-6.3/05-bible.jpg` | `iphone-6.9/05-bible.jpg` | `ipad-13/05-bible.jpg` |
+| 6 | Back to the Hebrew and Greek | `iphone-6.3/06-word.jpg` | `iphone-6.9/06-word.jpg` | `ipad-13/06-word.jpg` |
+| 7 | Study notes, written on your iPhone | `iphone-6.3/07-notes.jpg` | `iphone-6.9/07-notes.jpg` | |
+| 8 | Watch the year take shape | `iphone-6.3/08-progress.jpg` | `iphone-6.9/08-progress.jpg` | `ipad-13/08-progress.jpg` |
+| 9 | Parchment by day, lamplight by night | `iphone-6.3/09-bible-dark.jpg` | `iphone-6.9/09-bible-dark.jpg` | `ipad-13/09-bible-dark.jpg` |
+| 10 | Everything you noted, in one place | `iphone-6.3/10-journal.jpg` | `iphone-6.9/10-journal.jpg` | `ipad-13/10-journal.jpg` |
 
-They're generated: `tools/screenshots.sh` opens the simulator at staged screens with demo data, and `tools/frame_screenshots.py` adds the captions.
+They're generated: `tools/screenshots.sh` opens the simulator at staged screens with demo data, `tools/shield_shot.swift` draws the locked-app shield (Screen Time doesn't run in the simulator; its words and colors are the app's own), and `tools/frame_screenshots.py` puts each in its device, Dynamic Island and all, with its caption.
 
 ## App Review notes
 

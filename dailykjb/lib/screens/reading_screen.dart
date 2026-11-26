@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../bible/kjb.dart';
 import '../models/reading.dart';
 import '../providers/app_provider.dart';
+import '../screenshots.dart';
 import '../services/marks.dart';
 import '../ui/kit.dart';
 import '../ui/theme.dart';
@@ -28,6 +29,7 @@ class ReadingScreen extends StatefulWidget {
 
 class _ReadingScreenState extends State<ReadingScreen> with VerseActions {
   final _pages = PageController();
+  final _endKey = GlobalKey();
   int _page = 0;
   int _remaining = 0;
   Timer? _timer;
@@ -43,6 +45,7 @@ class _ReadingScreenState extends State<ReadingScreen> with VerseActions {
   @override
   void initState() {
     super.initState();
+    if (Screenshots.scene == 'reading') _toEnd();
     final prov = context.read<AppProvider>();
     if ((prov.userData?.appBlockingEnabled ?? false) &&
         !prov.isDayComplete(widget.reading.planDay)) {
@@ -52,6 +55,18 @@ class _ReadingScreenState extends State<ReadingScreen> with VerseActions {
         setState(() => _remaining--);
         if (_remaining <= 0) t.cancel();
       });
+    }
+  }
+
+  // Screenshots: the end of the day's reading, where it's marked read
+  Future<void> _toEnd() async {
+    await Future.delayed(const Duration(milliseconds: 1500));
+    if (!mounted || _spans.length < 2) return;
+    _pages.jumpToPage(_spans.length - 1);
+    await Future.delayed(const Duration(milliseconds: 700));
+    final ctx = _endKey.currentContext;
+    if (ctx != null && ctx.mounted) {
+      await Scrollable.ensureVisible(ctx, alignment: .55);
     }
   }
 
@@ -228,6 +243,7 @@ class _ReadingScreenState extends State<ReadingScreen> with VerseActions {
     final p = context.parch;
     final waiting = _remaining > 0;
     return Padding(
+      key: _endKey,
       padding: const EdgeInsets.only(top: 34, left: 8),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,

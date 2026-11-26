@@ -98,7 +98,7 @@ class Screenshots {
       quizzesTaken: 14,
       totalQuizScore: 610,
       bestQuizScore: 100,
-      appBlockingEnabled: s == 'focus',
+      appBlockingEnabled: s == 'focus' || s == 'reading',
     );
     await prefs.setString('user_data', user.toJsonString());
 

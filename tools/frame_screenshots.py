@@ -36,6 +36,33 @@ def wrap(d, text, font, maxw):
         else: lines.append(cur); cur = w
     lines.append(cur); return lines
 
+def device(shot, width, ipad=False):
+    """The screen in an iPhone (or iPad) as it looks: a black bezel with a thin metal edge, the display's rounded
+    corners and, on iPhone, the Dynamic Island, which simulator captures leave out. Sizes are Apple's, in points:
+    the island 126 x 37, 11 from the top of the display. Returns the image and how far the screen sits inside it."""
+    s = shot if isinstance(shot, Image.Image) else Image.open(shot).convert('RGBA')
+    pts = s.width / (2 if ipad else 3)  # the display's width in points
+    k = width / pts  # pixels per point here
+    h = int(s.height * width / s.width)
+    s = s.resize((width, h), Image.LANCZOS)
+    rad = int(width * (0.128 if not ipad else 0.03))
+    bezel = max(6, int((9 if not ipad else 18) * k))
+    edge = max(2, int(2.5 * k))
+    rim = bezel + edge
+    out = Image.new('RGBA', (width + 2 * rim, h + 2 * rim), (0, 0, 0, 0))
+    d = ImageDraw.Draw(out)
+    d.rounded_rectangle([0, 0, out.width - 1, out.height - 1], radius=rad + rim, fill=(58, 58, 62, 255))
+    d.rounded_rectangle([edge, edge, out.width - 1 - edge, out.height - 1 - edge], radius=rad + bezel, fill=(8, 8, 10, 255))
+    mask = Image.new('L', (width, h), 0)
+    ImageDraw.Draw(mask).rounded_rectangle([0, 0, width - 1, h - 1], radius=rad, fill=255)
+    out.paste(s, (rim, rim), mask)
+    if not ipad:
+        iw, ih, top = 126 * k, 37 * k, 11 * k
+        cx = rim + width / 2
+        d.rounded_rectangle([cx - iw / 2, rim + top, cx + iw / 2, rim + top + ih], radius=ih / 2, fill=(0, 0, 0, 255))
+    return out, rim
+
+
 def frame(shot, out, title, sub, W, H, dark=False, ipad=False):
     bg = background(W, H, dark); d = ImageDraw.Draw(bg)
     ink = (245, 236, 221) if dark else (42, 30, 21); faded = (200, 180, 155) if dark else (124, 104, 82)
@@ -48,41 +75,42 @@ def frame(shot, out, title, sub, W, H, dark=False, ipad=False):
     y += int(tsize * .25); ornament(d, W // 2, y + 6, int(W * .22), gold); y += int(tsize * .7)
     for line in wrap(d, sub, sf, W * 0.8):
         d.text((W / 2, y), line, font=sf, fill=faded, anchor='ma'); y += int(ssize * 1.3)
-    # The screen, rounded, with a shadow, filling the rest
+    # The device, with a shadow, filling the rest
     s = Image.open(shot).convert('RGBA')
-    avail_h = H - y - int(H * 0.03) - 70; scale = min((W * (0.84 if not ipad else 0.8)) / s.width, avail_h / s.height)
-    sw, sh = int(s.width * scale), int(s.height * scale); s = s.resize((sw, sh), Image.LANCZOS)
-    rad = int(sw * (0.085 if not ipad else 0.035))
-    mask = Image.new('L', (sw, sh), 0); ImageDraw.Draw(mask).rounded_rectangle([0, 0, sw - 1, sh - 1], radius=rad, fill=255)
-    x0 = (W - sw) // 2; y0 = H - sh - int(H * 0.03)
-    shadow = Image.new('RGBA', (W, H), (0, 0, 0, 0)); ImageDraw.Draw(shadow).rounded_rectangle([x0, y0 + 18, x0 + sw, y0 + sh + 18], radius=rad, fill=(40, 20, 5, 120 if not dark else 200))
+    avail_h = H - y - int(H * 0.03) - 70
+    sw = int(min(W * (0.80 if not ipad else 0.78), avail_h * s.width / s.height))
+    dev, rim = device(s, sw, ipad)
+    x0 = (W - dev.width) // 2; y0 = H - dev.height - int(H * 0.025)
+    rad = int(sw * (0.128 if not ipad else 0.03))
+    shadow = Image.new('RGBA', (W, H), (0, 0, 0, 0))
+    ImageDraw.Draw(shadow).rounded_rectangle([x0, y0 + 18, x0 + dev.width, y0 + dev.height + 18], radius=rad + rim, fill=(40, 20, 5, 120 if not dark else 200))
     bg = Image.alpha_composite(bg, shadow.filter(ImageFilter.GaussianBlur(36)))
-    border = Image.new('RGBA', (W, H), (0, 0, 0, 0)); ImageDraw.Draw(border).rounded_rectangle([x0 - 10, y0 - 10, x0 + sw + 10, y0 + sh + 10], radius=rad + 10, fill=(64, 34, 20, 255) if not dark else (90, 66, 46, 255))
-    bg = Image.alpha_composite(bg, border)
-    bg.paste(s, (x0, y0), mask)
+    bg.alpha_composite(dev, (x0, y0))
     bg.convert('RGB').save(out, quality=95)
 
+# (file in the store, raw capture it frames, caption, line under it, dark)
+# Accountability first: the first three show in App Store search results.
 CAPTIONS = [
-    ('01-today', 'A little of the Word, every day', 'Reading plans for the whole Bible, in order or as it happened. Begin today.', False),
-    ('02-bible', 'Turn the page, chapter to chapter', 'Swipe through the King James Bible. Tap verses to highlight, note, copy or share.', False),
-    ('03-word', 'Back to the Hebrew and Greek', "Tap any word for Strong's and Webster's 1828, built in and working offline.", False),
-    ('04-notes', 'Study notes, written on your iPhone', 'Apple Intelligence explains a verse privately, on the device, with no connection.', False),
-    ('05-reading', "Today's chapters, one after another", 'Mark the day read, or take a short quiz on what you read.', False),
-    ('06-journal', 'Everything you noted, in one place', 'Notes and highlights, searchable, a tap from where you wrote them.', False),
-    ('07-progress', 'Watch the year take shape', 'Days read, days in a row, and every day of the plan on its calendar.', False),
-    ('08-focus', 'The Word before the world', "Focus Mode keeps the apps you choose closed each day until you've read.", False),
-    ('09-bible-dark', 'Parchment by day, lamplight by night', 'Light and dark, the type and size you like, a verse to a line or as a paragraph.', True),
-    ('10-share', 'Share a verse as a picture', 'Square for a post, tall for a story, on paper, in ink or in ember.', False),
+    ('01-focus', '08-focus', 'An accountability Bible reading app', "Choose the apps that pull you away. Each day they stay locked until you've read.", False),
+    ('02-shield', 'shield', 'Your Bible before your apps', "Open a locked app and Read now takes you straight to today's chapters.", False),
+    ('03-today', '01-today', 'A little of the Word, every day', 'Reading plans for the whole Bible, in order or as it happened.', False),
+    ('04-reading', '05-reading', 'Read it, or prove it', 'Mark the day read, or pass a short quiz on what you read. Then your apps open.', False),
+    ('05-bible', '02-bible', 'Turn the page, chapter to chapter', 'Swipe through the King James Bible. Tap verses to highlight, note, copy or share.', False),
+    ('06-word', '03-word', 'Back to the Hebrew and Greek', "Tap any word for Strong's and Webster's 1828, built in and working offline.", False),
+    ('07-notes', '04-notes', 'Study notes, written on your iPhone', 'Apple Intelligence explains a verse privately, on the device, with no connection.', False),
+    ('08-progress', '07-progress', 'Watch the year take shape', 'Days read, days in a row, and every day of the plan on its calendar.', False),
+    ('09-bible-dark', '09-bible-dark', 'Parchment by day, lamplight by night', 'Light and dark, the type and size you like, a verse to a line or as a paragraph.', True),
+    ('10-journal', '06-journal', 'Everything you noted, in one place', 'Notes and highlights, searchable, a tap from where you wrote them.', False),
 ]
 
 if __name__ == '__main__':
-    # frame_screenshots.py <raw-dir> <iphone|ipad> <out-dir>
+    # frame_screenshots.py <raw-dir> <iphone|iphone-6.3|ipad> <out-dir>
     raw, kind, out = sys.argv[1], sys.argv[2], sys.argv[3]
     ipad = kind == 'ipad'
-    W, H = (2064, 2752) if ipad else (1320, 2868)
+    W, H = {'ipad': (2064, 2752), 'iphone-6.3': (1206, 2622)}.get(kind, (1320, 2868))
     os.makedirs(out, exist_ok=True)
-    for name, title, sub, dark in CAPTIONS:
-        shot = os.path.join(raw, name + '.png')
+    for name, source, title, sub, dark in CAPTIONS:
+        shot = os.path.join(raw, source + '.png')
         if not os.path.exists(shot): continue
         dest = os.path.join(out, name + '.png')
         frame(shot, dest, title, sub, W, H, dark, ipad)

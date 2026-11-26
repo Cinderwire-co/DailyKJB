@@ -4,26 +4,26 @@
 
 # Daily KJB
 
-**The King James Bible, a little every day, and help understanding what you read.**
+**An accountability Bible reading app: your chosen apps stay locked each day until you've read.**
 
 Free on iPhone and iPad. Everything works offline: no account, no cloud, no tracking.
 
 </div>
 
 <p align="center">
-  <img src="store/screenshots/iphone-6.9/02-bible.jpg" alt="John 3 on parchment, two verses chosen, with highlight colours and Study, Note, Copy and Share" width="720">
+  <img src="store/marketing/header-3840x1646.png" alt="The Word first: an accountability Bible reading app. A locked app's shield in front of today's reading" width="820">
 </p>
 
 <table align="center">
   <tr>
-    <td><img src="store/screenshots/iphone-6.9/01-today.jpg" alt="Today: the day's reading, the verse for today and the plan's progress" width="220"></td>
-    <td><img src="store/screenshots/iphone-6.9/03-word.jpg" alt="The word 'loved': Strong's Greek, Webster's 1828, and a plain-English meaning" width="220"></td>
-    <td><img src="store/screenshots/iphone-6.9/08-focus.jpg" alt="Focus Mode: chosen apps closed until the day is read" width="220"></td>
+    <td><img src="store/screenshots/iphone-6.9/01-focus.jpg" alt="Focus Mode: chosen apps locked until the day is read" width="220"></td>
+    <td><img src="store/screenshots/iphone-6.9/04-reading.jpg" alt="The end of the day's reading: a little time first, then mark it read or take the quiz" width="220"></td>
+    <td><img src="store/screenshots/iphone-6.9/06-word.jpg" alt="The word 'loved': Strong's Greek, Webster's 1828, and a plain-English meaning" width="220"></td>
   </tr>
   <tr>
-    <td align="center">Today</td>
-    <td align="center">Word study</td>
     <td align="center">Focus Mode</td>
+    <td align="center">Read it, or prove it</td>
+    <td align="center">Word study</td>
   </tr>
 </table>
 
@@ -72,7 +72,7 @@ flutter run --release        # on a connected iPhone
 
 To install on your own device, copy `dailykjb/ios/Flutter/Signing.xcconfig.example` to `Signing.xcconfig` in the same folder and put your Apple Developer Team ID in it. That file is git-ignored, so your team ID never ends up in a commit. Focus Mode needs the Family Controls capability on your own App IDs (development builds work as soon as it's enabled).
 
-App Store screenshots are generated, not hand-made: `tools/screenshots.sh` launches the simulator into staged screens with demo data, and `tools/frame_screenshots.py` adds captions. The icon and the paper grain are drawn by `tools/make_icon.py` and `tools/make_grain.py`. `tools/widget_shots.swift` draws the widgets on the Mac, light and dark, to look at without a phone. The image scripts need Pillow and numpy:
+App Store screenshots are generated, not hand-made: `tools/screenshots.sh` launches the simulator into staged screens with demo data, `tools/shield_shot.swift` draws the locked-app shield, `tools/frame_screenshots.py` puts each in its device with a caption, and `tools/make_banners.py` makes the product page's header and search results art. The icon and the paper grain are drawn by `tools/make_icon.py` and `tools/make_grain.py`. `tools/widget_shots.swift` draws the widgets on the Mac, light and dark, to look at without a phone. The image scripts need Pillow and numpy:
 
 ```bash
 python3 -m venv tools/.venv && tools/.venv/bin/pip install pillow numpy
