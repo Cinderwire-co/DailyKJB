@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:cupertino_ui/cupertino_ui.dart' show CupertinoIcons;
 import 'package:material_ui/material_ui.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +12,7 @@ import '../utils/constants.dart';
 import 'bible_screen.dart' show readingStyleSheet;
 import 'focus_screen.dart';
 import 'home_screen.dart' show choosePlanSheet;
+import 'reader.dart' show ReaderStyle;
 
 const appVersion = '1.1.0';
 
@@ -194,52 +197,50 @@ class SettingsScreen extends StatelessWidget {
                   icon: CupertinoIcons.textformat_size,
                   title: 'Type, size and layout',
                   subtitle:
-                      '${switch (prov.readingFont) {
-                        'georgia' => 'Georgia',
-                        'sans' => 'Clean',
-                        _ => 'Garamond',
-                      }} · ${(prov.fontScale * 100).round()}% · ${prov.verseLayout == 'paragraph' ? 'Paragraph' : 'Verse by verse'}',
+                      '${ReaderStyle.nameOf(prov.readingFont)} · ${(prov.fontScale * 100).round()}% · ${prov.verseLayout == 'paragraph' ? 'Paragraph' : 'Verse by verse'}',
                   onTap: () => readingStyleSheet(context),
                 ),
               ]),
-              ListenableBuilder(
-                listenable: AiService.i,
-                builder: (context, _) {
-                  final ai = AiService.i;
-                  final can = ai.state == AiState.available;
-                  return section('Apple Intelligence', [
-                    if (can)
-                      SwitchLine(
-                        icon: CupertinoIcons.sparkles,
-                        title: 'Study help on this iPhone',
-                        subtitle: 'Notes on verses, words in plain English, and quizzes. Written on the phone; nothing leaves it.',
-                        value: prov.aiEnabled,
-                        onChanged: prov.setAiEnabled,
-                      )
-                    else
-                      Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 13),
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Icon(
-                              CupertinoIcons.sparkles,
-                              size: 21,
-                              color: p.faded,
-                            ),
-                            const SizedBox(width: 14),
-                            Expanded(
-                              child: Text(
-                                ai.statusText,
-                                style: p.small.copyWith(fontSize: 15),
+              // Apple Intelligence is Apple's: nothing about it on Android
+              if (Platform.isIOS)
+                ListenableBuilder(
+                  listenable: AiService.i,
+                  builder: (context, _) {
+                    final ai = AiService.i;
+                    final can = ai.state == AiState.available;
+                    return section('Apple Intelligence', [
+                      if (can)
+                        SwitchLine(
+                          icon: CupertinoIcons.sparkles,
+                          title: 'Study help on this device',
+                          subtitle: 'Notes on verses, words in plain English, and quizzes. Written on the phone; nothing leaves it.',
+                          value: prov.aiEnabled,
+                          onChanged: prov.setAiEnabled,
+                        )
+                      else
+                        Padding(
+                          padding: const EdgeInsets.symmetric(vertical: 13),
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Icon(
+                                CupertinoIcons.sparkles,
+                                size: 21,
+                                color: p.faded,
                               ),
-                            ),
-                          ],
+                              const SizedBox(width: 14),
+                              Expanded(
+                                child: Text(
+                                  ai.statusText,
+                                  style: p.small.copyWith(fontSize: 15),
+                                ),
+                              ),
+                            ],
+                          ),
                         ),
-                      ),
-                  ]);
-                },
-              ),
+                    ]);
+                  },
+                ),
               section('Focus Mode', [
                 RowLink(
                   icon: CupertinoIcons.lock_shield,

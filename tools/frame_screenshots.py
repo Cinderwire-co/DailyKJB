@@ -36,12 +36,13 @@ def wrap(d, text, font, maxw):
         else: lines.append(cur); cur = w
     lines.append(cur); return lines
 
-def device(shot, width, ipad=False):
-    """The screen in an iPhone (or iPad) as it looks: a black bezel with a thin metal edge, the display's rounded
-    corners and, on iPhone, the Dynamic Island, which simulator captures leave out. Sizes are Apple's, in points:
-    the island 126 x 37, 11 from the top of the display. Returns the image and how far the screen sits inside it."""
+def device(shot, width, ipad=False, android=False):
+    """The screen in an iPhone (or iPad, or Android phone) as it looks: a black bezel with a thin metal edge, the
+    display's rounded corners and, on iPhone, the Dynamic Island, which simulator captures leave out (Apple's sizes, in
+    points: 126 x 37, 11 from the top); on Android, the punch-hole camera. Returns the image and how far the screen
+    sits inside it."""
     s = shot if isinstance(shot, Image.Image) else Image.open(shot).convert('RGBA')
-    pts = s.width / (2 if ipad else 3)  # the display's width in points
+    pts = s.width / (2 if ipad else 2.625 if android else 3)  # the display's width in points (dp on Android)
     k = width / pts  # pixels per point here
     h = int(s.height * width / s.width)
     s = s.resize((width, h), Image.LANCZOS)
@@ -56,14 +57,18 @@ def device(shot, width, ipad=False):
     mask = Image.new('L', (width, h), 0)
     ImageDraw.Draw(mask).rounded_rectangle([0, 0, width - 1, h - 1], radius=rad, fill=255)
     out.paste(s, (rim, rim), mask)
-    if not ipad:
+    if android:
+        r, top = 12 * k, 12 * k
+        cx = rim + width / 2
+        d.ellipse([cx - r, rim + top, cx + r, rim + top + 2 * r], fill=(0, 0, 0, 255))
+    elif not ipad:
         iw, ih, top = 126 * k, 37 * k, 11 * k
         cx = rim + width / 2
         d.rounded_rectangle([cx - iw / 2, rim + top, cx + iw / 2, rim + top + ih], radius=ih / 2, fill=(0, 0, 0, 255))
     return out, rim
 
 
-def frame(shot, out, title, sub, W, H, dark=False, ipad=False):
+def frame(shot, out, title, sub, W, H, dark=False, ipad=False, android=False):
     bg = background(W, H, dark); d = ImageDraw.Draw(bg)
     ink = (245, 236, 221) if dark else (42, 30, 21); faded = (200, 180, 155) if dark else (124, 104, 82)
     accent = (231, 155, 93) if dark else (192, 99, 43); gold = (216, 176, 106) if dark else (176, 131, 44)
@@ -79,7 +84,7 @@ def frame(shot, out, title, sub, W, H, dark=False, ipad=False):
     s = Image.open(shot).convert('RGBA')
     avail_h = H - y - int(H * 0.03) - 70
     sw = int(min(W * (0.80 if not ipad else 0.78), avail_h * s.width / s.height))
-    dev, rim = device(s, sw, ipad)
+    dev, rim = device(s, sw, ipad, android)
     x0 = (W - dev.width) // 2; y0 = H - dev.height - int(H * 0.025)
     rad = int(sw * (0.128 if not ipad else 0.03))
     shadow = Image.new('RGBA', (W, H), (0, 0, 0, 0))
@@ -104,15 +109,20 @@ CAPTIONS = [
 ]
 
 if __name__ == '__main__':
-    # frame_screenshots.py <raw-dir> <iphone|iphone-6.3|ipad> <out-dir>
+    # frame_screenshots.py <raw-dir> <iphone|iphone-6.3|ipad|android> <out-dir>
     raw, kind, out = sys.argv[1], sys.argv[2], sys.argv[3]
     ipad = kind == 'ipad'
-    W, H = {'ipad': (2064, 2752), 'iphone-6.3': (1206, 2622)}.get(kind, (1320, 2868))
+    W, H = {'ipad': (2064, 2752), 'iphone-6.3': (1206, 2622), 'android': (1080, 1920)}.get(kind, (1320, 2868))
+    android = kind == 'android'  # Google Play: 9:16, an Android phone
     os.makedirs(out, exist_ok=True)
+    made = 0
     for name, source, title, sub, dark in CAPTIONS:
         shot = os.path.join(raw, source + '.png')
-        if not os.path.exists(shot): continue
+        if not os.path.exists(shot) or (android and made == 8): continue  # Google Play takes eight
+        made += 1
         dest = os.path.join(out, name + '.png')
-        frame(shot, dest, title, sub, W, H, dark, ipad)
+        if android:
+            sub = sub.replace('on your iPhone', 'on your phone')
+        frame(shot, dest, title, sub, W, H, dark, ipad, android)
         Image.open(dest).convert('RGB').save(dest[:-4] + '.jpg', quality=92); os.remove(dest)
         print(dest[:-4] + '.jpg')

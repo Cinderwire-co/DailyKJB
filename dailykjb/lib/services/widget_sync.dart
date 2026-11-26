@@ -69,7 +69,8 @@ class WidgetSync {
 
 /// Links the app is opened with from a widget: dailykjb://read,
 /// dailykjb://today, dailykjb://verse?ref=John%203:16. A Focus Mode shield's
-/// "Read now" arrives the same way, as dailykjb://read.
+/// "Read now" arrives the same way, as dailykjb://read (on Android, from its
+/// overlay and its notification).
 class Links {
   Links._();
 
@@ -78,7 +79,7 @@ class Links {
   static bool _started = false;
 
   static Future<void> start() async {
-    if (_started || !Platform.isIOS) return;
+    if (_started || !(Platform.isIOS || Platform.isAndroid)) return;
     _started = true;
     _channel.setMethodCallHandler((call) async {
       if (call.method == 'link' && call.arguments is String) {

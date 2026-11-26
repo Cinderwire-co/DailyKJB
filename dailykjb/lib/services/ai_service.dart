@@ -118,12 +118,12 @@ class AiService extends ChangeNotifier {
   bool get ready => enabled && state == AiState.available;
 
   String get statusText => switch (state) {
-    AiState.available => 'Ready on this iPhone. Works offline.',
-    AiState.notEligible => 'This device doesn\'t have Apple Intelligence (it needs an iPhone 15 Pro or later). The study tools below still work.',
+    AiState.available => 'Ready on this device. Works offline.',
+    AiState.notEligible => 'This device doesn\'t have Apple Intelligence (it needs an iPhone 15 Pro or later, or an iPad with it). The study tools below still work.',
     AiState.notEnabled =>
       'Turn on Apple Intelligence in Settings to use it here.',
-    AiState.notReady => 'Apple Intelligence is still getting ready on this iPhone. Try again later.',
-    AiState.unsupported => 'Needs iOS 26 or later on an iPhone with Apple Intelligence. The study tools below still work.',
+    AiState.notReady => 'Apple Intelligence is still getting ready on this device. Try again later.',
+    AiState.unsupported => 'Needs iOS 26 or later on a device with Apple Intelligence. The study tools below still work.',
     AiState.checking => 'Checking…',
   };
 

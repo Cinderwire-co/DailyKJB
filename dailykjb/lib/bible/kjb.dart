@@ -87,7 +87,7 @@ class Kjb {
         chapters: int.parse(x[3]),
       );
     }).toList();
-    final gz = await rootBundle.load('assets/bible/kjb.tsv.gz');
+    final gz = await rootBundle.load('assets/bible/kjb.tsvz');
     _text.addAll(await compute(_parse, gz.buffer.asUint8List()));
     var n = 0;
     for (final bk in books) {

@@ -5,12 +5,12 @@ Daily KJB is a Flutter app for iOS and iPadOS (with an Android build) and a nati
 ## The Bible and the study data
 
 ```
-assets/bible/kjb.tsv.gz ──► Kjb (lib/bible/kjb.dart)     the text, books, references, plan passages
+assets/bible/kjb.tsvz    ──► Kjb (lib/bible/kjb.dart)     the text, books, references, plan passages
 assets/study/
-  strongs.tsv.gz        ──► StudyData.strongs()           Strong's Hebrew and Greek, loaded once
-  words/<book>.tsv.gz   ──► StudyData.verse()             each verse's words and their Strong's numbers
-  xrefs/<book>.tsv.gz   ──┘                               the best 20 cross references a verse
-  webster/<a-z>.tsv.gz  ──► StudyData.webster()           Webster's 1828, by first letter
+  strongs.tsvz          ──► StudyData.strongs()           Strong's Hebrew and Greek, loaded once
+  words/<book>.tsvz     ──► StudyData.verse()             each verse's words and their Strong's numbers
+  xrefs/<book>.tsvz     ──┘                               the best 20 cross references a verse
+  webster/<a-z>.tsvz    ──► StudyData.webster()           Webster's 1828, by first letter
 ```
 
 - **`Kjb.load()`** decompresses the whole Bible in an isolate on start (about 4 MB of text) and keeps it in memory, so any chapter is there the moment it's asked for.
@@ -61,6 +61,24 @@ AiService (Dart) ──MethodChannel com.dailykjb/ai──► AIChannel.swift �
 The app and extensions share an app group (`group.com.dailykjb.dailyKjb.shared`) for the selection and the day's state, and a named `ManagedSettingsStore` (`dailykjb`). `blocking_enabled` changes only when the reader turns Focus Mode on or off; reading the day clears the shields without touching it. On each open the app calls `enableBlocking` (idempotent), then `markReadingComplete` if today is read.
 
 "Read now" leaves `shield_read_now` (a timestamp) in the app group before it opens the app; `Links.fromShield()` takes it (once, within ten minutes) on launch or return and opens the day's reading.
+
+### On Android
+
+The same channel (`com.dailykjb/app_blocking`) and the same behaviour, built from what Android allows:
+
+| File | Job |
+| --- | --- |
+| `FocusMode.kt` | The state the iPhone keeps in its app group: the chosen apps, Focus Mode on or off, the day last read |
+| `BlockingOverlayService.kt` | A foreground service, running while Focus Mode is on. Usage access shows which app is in front; a chosen one is covered with the shield (parchment, "The Word first", Read now, Close). It checks each second while the apps should be locked and every 30 seconds once today is read, so at midnight they lock again on their own |
+| `BootReceiver.kt` | Starts the service again after a restart or an app update |
+| `AppBlockingChannel.kt` | The channel's calls; permission is asked a screen at a time (usage access, then display over other apps) |
+| `MainActivity.kt` | `com.dailykjb/home`: "Read now" and the service's notification open `dailykjb://read`, followed in Dart as on iPhone |
+
+The chosen apps are listed through a `<queries>` entry for launcher apps, not `QUERY_ALL_PACKAGES`. Before Settings opens for either permission, `requestFocusAccess` (`lib/screens/focus_screen.dart`) says what it's for and that nothing leaves the phone, the disclosure Google Play asks for; the Focus Mode screen checks the permissions again when the app comes back from Settings. Reminders are inexact alarms, so the app needs no exact-alarm permission. Apple Intelligence features don't appear on Android; the study tools that don't need it do. Georgia is Apple's, so the reader's second typeface is Android's own serif there (`ReaderStyle.familyOf`).
+
+Asset files are named `.tsvz`, not `.tsv.gz`: Android's asset packaging treats a `.gz` name as compressed and mangles it, and the app couldn't open the Bible. The files are gzip all the same.
+
+Google Play's listing, permission declarations and screenshots are in `store/GOOGLE_PLAY.md` and `store/google-play/`.
 
 ## Widgets
 

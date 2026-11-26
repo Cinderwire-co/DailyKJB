@@ -10,11 +10,14 @@ xrefs.tsv.gz and webster1828.tsv.gz (see NOTICE.md for where each comes from).
 
 Writes, under assets/:
   bible/books.tsv            id, name, testament, chapters
-  bible/kjb.tsv.gz           book, chapter, verse, text (the whole King James Bible)
-  study/strongs.tsv.gz       Strong's Hebrew and Greek dictionaries
-  study/words/<book>.tsv.gz  chapter, verse, the verse's words with their Strong's numbers (JSON)
-  study/xrefs/<book>.tsv.gz  chapter, verse, to_book, to_chapter, to_verse, to_end, votes
-  study/webster/<x>.tsv.gz   word, heading, entry (Webster's 1828), split by first letter
+  bible/kjb.tsvz             book, chapter, verse, text (the whole King James Bible)
+  study/strongs.tsvz         Strong's Hebrew and Greek dictionaries
+  study/words/<book>.tsvz    chapter, verse, the verse's words with their Strong's numbers (JSON)
+  study/xrefs/<book>.tsvz    chapter, verse, to_book, to_chapter, to_verse, to_end, votes
+  study/webster/<x>.tsvz     word, heading, entry (Webster's 1828), split by first letter
+
+.tsvz is gzipped TSV. Not .gz: Android's asset packaging handles files ending in .gz
+itself, and the app couldn't open them there.
 
 Split by book and by letter so a lookup only ever opens one small file.
 See NOTICE.md for where each comes from and its terms.
@@ -52,24 +55,24 @@ def main():
     os.makedirs(os.path.join(root, 'bible'), exist_ok=True)
     shutil.copy(os.path.join(src, 'books.tsv'), os.path.join(root, 'bible', 'books.tsv'))
     h, kjb = rows('kjb.tsv')
-    write(os.path.join(root, 'bible', 'kjb.tsv.gz'), h, ['\t'.join(r) for r in kjb])
+    write(os.path.join(root, 'bible', 'kjb.tsvz'), h, ['\t'.join(r) for r in kjb])
 
     h, strongs = rows('strongs.tsv.gz')
-    write(os.path.join(root, 'study', 'strongs.tsv.gz'), h, ['\t'.join(r) for r in strongs])
+    write(os.path.join(root, 'study', 'strongs.tsvz'), h, ['\t'.join(r) for r in strongs])
 
     _, words = rows('words.tsv.gz')
     by_book = defaultdict(list)
     for b, c, v, w in words:
         by_book[b].append(f'{c}\t{v}\t{w}')
     for b, lines in by_book.items():
-        write(os.path.join(root, 'study', 'words', f'{b}.tsv.gz'), 'chapter\tverse\twords', lines)
+        write(os.path.join(root, 'study', 'words', f'{b}.tsvz'), 'chapter\tverse\twords', lines)
 
     _, xrefs = rows('xrefs.tsv.gz')
     by_book = defaultdict(list)
     for b, c, v, tb, tc, tv, te, votes in xrefs:
         by_book[b].append('\t'.join([c, v, tb, tc, tv, te, votes]))
     for b, lines in by_book.items():
-        write(os.path.join(root, 'study', 'xrefs', f'{b}.tsv.gz'), 'chapter\tverse\tto_book\tto_chapter\tto_verse\tto_end\tvotes', lines)
+        write(os.path.join(root, 'study', 'xrefs', f'{b}.tsvz'), 'chapter\tverse\tto_book\tto_chapter\tto_verse\tto_end\tvotes', lines)
 
     _, webster = rows('webster1828.tsv.gz')
     by_letter = defaultdict(list)
@@ -80,7 +83,7 @@ def main():
         first = word[:1].lower()
         by_letter[first if 'a' <= first <= 'z' else '_'].append(f'{word}\t{heading}\t{entry}')
     for x, lines in by_letter.items():
-        write(os.path.join(root, 'study', 'webster', f'{x}.tsv.gz'), 'word\theading\tentry', lines)
+        write(os.path.join(root, 'study', 'webster', f'{x}.tsvz'), 'word\theading\tentry', lines)
 
     print(f'{len(kjb)} verses, {len(strongs)} Strong\'s entries, {len(words)} verses of words, '
           f'{len(xrefs)} cross references, {len(webster)} Webster entries')

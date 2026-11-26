@@ -388,6 +388,10 @@ class ParchButton extends StatelessWidget {
   final bool expand;
   final bool small;
 
+  // One word shrinks to fit rather than break (PARCHMEN-T on a narrow phone); more wrap between words
+  Widget _fit(Text t) =>
+      label.contains(' ') ? t : FittedBox(fit: BoxFit.scaleDown, child: t);
+
   @override
   Widget build(BuildContext context) {
     final p = context.parch;
@@ -405,15 +409,17 @@ class ParchButton extends StatelessWidget {
           const SizedBox(width: 8),
         ],
         Flexible(
-          child: Text(
-            label.toUpperCase(),
-            textAlign: TextAlign.center,
-            style: TextStyle(
-              fontFamily: Parchment.caps,
-              fontSize: small ? 11.5 : 13,
-              letterSpacing: 1.6,
-              fontWeight: FontWeight.w700,
-              color: fg,
+          child: _fit(
+            Text(
+              label.toUpperCase(),
+              textAlign: TextAlign.center,
+              style: TextStyle(
+                fontFamily: Parchment.caps,
+                fontSize: small ? 11.5 : 13,
+                letterSpacing: 1.6,
+                fontWeight: FontWeight.w700,
+                color: fg,
+              ),
             ),
           ),
         ),

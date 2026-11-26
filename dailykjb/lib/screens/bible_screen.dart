@@ -516,10 +516,9 @@ Future<void> readingStyleSheet(BuildContext context) {
             const Label('Type'),
             const SizedBox(height: 8),
             row(
-              const [
-                ('garamond', 'Garamond'),
-                ('georgia', 'Georgia'),
-                ('sans', 'Clean'),
+              [
+                for (final f in ['garamond', 'georgia', 'sans'])
+                  (f, ReaderStyle.nameOf(f)),
               ],
               prov.readingFont,
               prov.setReadingFont,
@@ -594,11 +593,7 @@ Future<void> readingStyleSheet(BuildContext context) {
                     TextSpan(
                       text: 'n the beginning God created the heaven and the earth.',
                       style: TextStyle(
-                        fontFamily: switch (prov.readingFont) {
-                          'georgia' => 'Georgia',
-                          'sans' => null,
-                          _ => Parchment.serif,
-                        },
+                        fontFamily: ReaderStyle.familyOf(prov.readingFont),
                         fontSize:
                             (prov.readingFont == 'garamond' ? 21 : 19) *
                             prov.fontScale,

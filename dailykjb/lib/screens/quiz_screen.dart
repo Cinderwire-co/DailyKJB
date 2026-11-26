@@ -161,7 +161,7 @@ class _QuizScreenState extends State<QuizScreen> {
           if (_loading)
             Waiting(
               text: AiService.i.ready
-                  ? 'Writing questions on this iPhone…'
+                  ? 'Writing questions on this device…'
                   : null,
             )
           else if (_count == 0)

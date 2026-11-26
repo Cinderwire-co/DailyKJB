@@ -1,0 +1,36 @@
+Daily KJB is an accountability Bible reading app. Choose the apps that pull you away, and each day they stay locked until you've read your Bible. Mark the day read, or pass a short quiz on it, and they open again. At midnight they lock again.
+
+ACCOUNTABILITY THAT WORKS
+• Focus Mode keeps your chosen apps locked each day until today's reading is done
+• Open a locked app and "Read now" takes you straight to today's chapters
+• A little time with the reading before it can be marked read, or pass a quiz on what you read
+• An accountability partner can hold a passcode, so Focus Mode can't be turned off on a whim
+• It comes back on by itself after your phone restarts
+• Your streak and every day of your plan on a calendar
+
+And it helps you understand what you read.
+
+A PLAN FOR EVERY READER
+• The whole Bible in order, or as events happened (chronological)
+• The Old Testament, or the New Testament a passage a day
+• Over 3 months, 6 months, a year or two years; the chapters are shared out evenly
+• Add a Psalm or a Proverb each day alongside
+• Fall behind? Pick up from today, and nothing you've read is lost
+
+A BIBLE YOU TURN LIKE A BOOK
+• Swipe from chapter to chapter, with a gentle tap of haptics as each page turns
+• A verse to a line, or as a paragraph; Garamond, a serif or a clean type, at the size you like
+• Tap verses to highlight in five colours, write a note, copy, or share
+• Search every word of the Bible, or go straight to a reference
+
+STUDY EVERY WORD, OFFLINE
+• Tap any word to see the Hebrew or Greek behind it, from Strong's Exhaustive Concordance
+• See what the word meant in 1828, from Noah Webster's American Dictionary
+• Cross references for every verse
+• All of it built into the app: no connection needed
+
+PRIVATE BY DESIGN
+No account, no ads, no tracking. Your reading, notes and highlights stay on your phone.
+
+HOW FOCUS MODE WORKS
+Focus Mode asks for two permissions. Usage access lets Daily KJB see which app is open, so it can cover the apps you chose; display over other apps lets it show that cover. Nothing it sees is kept, and nothing leaves your phone. While Focus Mode is on, a quiet notification shows it's keeping watch.

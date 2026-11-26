@@ -10,11 +10,15 @@ Your name (if you give one), reading plan, progress, notes, highlights and setti
 
 ## Apple Intelligence
 
-On devices that have it, Daily KJB uses Apple's on-device language model to write study notes on a verse, explain a word in plain English, and write a quiz on the day's reading. The verse text and everything else it works from are processed on the device and are not sent to Daily KJB or any server.
+On iPhones and iPads that have it, Daily KJB uses Apple's on-device language model to write study notes on a verse, explain a word in plain English, and write a quiz on the day's reading. The verse text and everything else it works from are processed on the device and are not sent to Daily KJB or any server.
 
 ## Focus Mode and Screen Time
 
 Focus Mode uses Apple's Screen Time (Family Controls) to keep the apps you choose closed until you've read. iOS holds your choices as private tokens that Daily KJB cannot read: the app never learns which apps you chose or how you use them. An accountability passcode, if you set one, is stored on the device only as a one-way hash.
+
+## Focus Mode on Android
+
+Android has no Screen Time, so Focus Mode asks for two permissions you grant in Android's Settings. Usage access lets it see which app is open, so it can cover the apps you chose; display over other apps lets it show that cover. It keeps the list of apps you chose on the device, and checks only which app is in front at that moment: it doesn't record or keep your app usage, and none of it leaves the device. Turning Focus Mode off stops the checking, and you can withdraw either permission in Settings at any time.
 
 ## Notifications
 

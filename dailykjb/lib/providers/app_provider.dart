@@ -60,12 +60,16 @@ class AppProvider extends ChangeNotifier {
     _isLoading = true;
     notifyListeners();
 
+    // Each on its own: one failing (reminders on a phone that refuses them,
+    // say) mustn't leave the app on a blank page
+    Future<void> safely(Future<void> f, String what) =>
+        f.catchError((Object e) => debugPrint('Could not load $what: $e'));
     await Future.wait([
-      Kjb.load(),
-      _notificationService.initialize(),
-      _notesService.loadNotes(),
-      _highlightService.loadHighlights(),
-      AiService.i.refresh(),
+      safely(Kjb.load(), 'the Bible'),
+      safely(_notificationService.initialize(), 'reminders'),
+      safely(_notesService.loadNotes(), 'notes'),
+      safely(_highlightService.loadHighlights(), 'highlights'),
+      safely(AiService.i.refresh(), 'Apple Intelligence'),
     ]);
     _userData = await StorageService.loadUserData();
 

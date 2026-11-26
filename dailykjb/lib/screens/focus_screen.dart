@@ -24,11 +24,20 @@ class _FocusScreenState extends State<FocusScreen> {
   bool _supported = true, _authorized = false;
   int _apps = 0;
   bool _loaded = false;
+  // Back from Android's Settings, where the permissions are given
+  late final AppLifecycleListener _resume;
 
   @override
   void initState() {
     super.initState();
+    _resume = AppLifecycleListener(onResume: _refresh);
     _refresh();
+  }
+
+  @override
+  void dispose() {
+    _resume.dispose();
+    super.dispose();
   }
 
   Future<void> _refresh() async {
@@ -116,8 +125,10 @@ class _FocusScreenState extends State<FocusScreen> {
                           subtitle: _apps == 0
                               ? 'None chosen yet'
                               : Platform.isIOS
-                              ? '$_apps apps and categories'
-                              : '$_apps apps',
+                              ? (_apps == 1
+                                    ? '1 app or category'
+                                    : '$_apps apps and categories')
+                              : (_apps == 1 ? '1 app' : '$_apps apps'),
                           onTap: () => _choose(context),
                         ),
                         const Hairline(),
@@ -178,11 +189,12 @@ class _FocusScreenState extends State<FocusScreen> {
                       CupertinoIcons.checkmark_seal,
                       'Mark it read, or pass the quiz, and the apps open at once.',
                     ),
-                    if (Platform.isIOS)
-                      (
-                        CupertinoIcons.hand_raised,
-                        'Apple\'s Screen Time keeps your choices private: DailyKJB never sees which apps they are.',
-                      ),
+                    (
+                      CupertinoIcons.hand_raised,
+                      Platform.isIOS
+                          ? 'Apple\'s Screen Time keeps your choices private: DailyKJB never sees which apps they are.'
+                          : 'Usage access only tells DailyKJB which app is open, to cover the ones you chose. It stays on this phone.',
+                    ),
                   ])
                     Padding(
                       padding: const EdgeInsets.symmetric(vertical: 7),
@@ -207,10 +219,7 @@ class _FocusScreenState extends State<FocusScreen> {
   }
 
   Future<bool> _authorize(BuildContext context) async {
-    final ok = await context
-        .read<AppProvider>()
-        .appBlockingService
-        .requestAuthorization();
+    final ok = await requestFocusAccess(context);
     await _refresh();
     if (!ok && context.mounted) {
       toast(
@@ -314,6 +323,25 @@ class _FocusScreenState extends State<FocusScreen> {
     await prov.clearAccountabilityPasscode();
     if (context.mounted) toast(context, 'Passcode removed');
   }
+}
+
+/// What Focus Mode needs: Screen Time on iPhone; on Android, usage access and
+/// display over other apps, each said plainly before Settings opens.
+Future<bool> requestFocusAccess(BuildContext context) async {
+  final service = context.read<AppProvider>().appBlockingService;
+  if (Platform.isAndroid && !await service.isAuthorized()) {
+    if (!context.mounted) return false;
+    final go = await sure(
+      context,
+      'Two permissions',
+      ok: 'Open Settings',
+      text:
+          'Usage access lets DailyKJB see which app is open, so it can cover the apps you chose until you\'ve read. '
+          'Display over other apps lets it show that cover. Nothing it sees is kept, and nothing leaves this phone.',
+    );
+    if (!go) return false;
+  }
+  return service.requestAuthorization();
 }
 
 /// The apps to keep closed: Apple's own picker on iPhone; a list on Android.

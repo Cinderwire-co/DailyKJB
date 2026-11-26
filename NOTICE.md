@@ -10,11 +10,11 @@ The Bible text and study data in `dailykjb/assets/bible` and `dailykjb/assets/st
 
 | Files | What | From | Terms |
 | --- | --- | --- | --- |
-| `assets/bible/kjb.tsv.gz`, `assets/bible/books.tsv` | The King James Bible | The text is in the public domain; this copy from [Bible-kjv](https://github.com/aruljohn/Bible-kjv) by Arul John | MIT, below |
-| `assets/study/words/*.tsv.gz` | Each verse's words with their Strong's numbers | [CrossWire Bible Society](https://crosswire.org) KJV module 3.1 (Old Testament numbers from the Bible Foundation, New Testament from the KJV2003 Project) | CrossWire Bible Society: "a general public license to use this text for any purpose" |
-| `assets/study/strongs.tsv.gz` | Strong's Hebrew and Greek dictionaries | James Strong, *The Exhaustive Concordance of the Bible* (1894), via [Open Scriptures](https://github.com/openscriptures/strongs) | Public domain |
-| `assets/study/xrefs/*.tsv.gz` | Cross references, the best 20 for each verse | [OpenBible.info](https://www.openbible.info/labs/cross-references/), from the Treasury of Scripture Knowledge | [CC BY](https://creativecommons.org/licenses/by/4.0/). Attribution, as the app shows it: "Cross references from OpenBible.info" |
-| `assets/study/webster/*.tsv.gz` | Noah Webster, *An American Dictionary of the English Language* (1828) | The dictionary is in the public domain; this copy from [1828-dictionary](https://github.com/DataWar/1828-dictionary) by DataWar, from Project Gutenberg | MIT, below |
+| `assets/bible/kjb.tsvz`, `assets/bible/books.tsv` | The King James Bible | The text is in the public domain; this copy from [Bible-kjv](https://github.com/aruljohn/Bible-kjv) by Arul John | MIT, below |
+| `assets/study/words/*.tsvz` | Each verse's words with their Strong's numbers | [CrossWire Bible Society](https://crosswire.org) KJV module 3.1 (Old Testament numbers from the Bible Foundation, New Testament from the KJV2003 Project) | CrossWire Bible Society: "a general public license to use this text for any purpose" |
+| `assets/study/strongs.tsvz` | Strong's Hebrew and Greek dictionaries | James Strong, *The Exhaustive Concordance of the Bible* (1894), via [Open Scriptures](https://github.com/openscriptures/strongs) | Public domain |
+| `assets/study/xrefs/*.tsvz` | Cross references, the best 20 for each verse | [OpenBible.info](https://www.openbible.info/labs/cross-references/), from the Treasury of Scripture Knowledge | [CC BY](https://creativecommons.org/licenses/by/4.0/). Attribution, as the app shows it: "Cross references from OpenBible.info" |
+| `assets/study/webster/*.tsvz` | Noah Webster, *An American Dictionary of the English Language* (1828) | The dictionary is in the public domain; this copy from [1828-dictionary](https://github.com/DataWar/1828-dictionary) by DataWar, from Project Gutenberg | MIT, below |
 | `assets/fonts/Cinzel-*.ttf` | Cinzel | Copyright 2020 The Cinzel Project Authors | [SIL Open Font License 1.1](dailykjb/assets/fonts/OFL.txt) |
 | `assets/fonts/EBGaramond-*.ttf` | EB Garamond | Copyright 2017 The EB Garamond Project Authors | [SIL Open Font License 1.1](dailykjb/assets/fonts/OFL.txt) |
 

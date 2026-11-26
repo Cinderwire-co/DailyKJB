@@ -1,3 +1,5 @@
+import 'dart:io' show Platform;
+
 import 'package:cupertino_ui/cupertino_ui.dart' show CupertinoIcons;
 import 'package:flutter/gestures.dart';
 import 'package:flutter/services.dart';
@@ -27,18 +29,28 @@ void openInBible(BuildContext context, int book, int chapter, [int? verse]) {
 /// How the reader likes the Bible set: the type, its size, a verse to a line
 /// or as a paragraph.
 class ReaderStyle {
-  final String? family;
+  final String family;
   final double size;
   final bool lines;
   const ReaderStyle(this.family, this.size, this.lines);
 
+  /// The reader's three typefaces. Georgia is Apple's; Android has its own serif in its place. Clean is the
+  /// phone's own sans: SF Pro, or Roboto (named, or it would take the theme's Garamond).
+  static String familyOf(String font) => switch (font) {
+    'georgia' => Platform.isAndroid ? 'serif' : 'Georgia',
+    'sans' => Platform.isAndroid ? 'sans-serif' : 'CupertinoSystemText',
+    _ => Parchment.serif,
+  };
+
+  static String nameOf(String font) => switch (font) {
+    'georgia' => Platform.isAndroid ? 'Serif' : 'Georgia',
+    'sans' => 'Clean',
+    _ => 'Garamond',
+  };
+
   static ReaderStyle of(BuildContext context) {
     final p = context.watch<AppProvider>();
-    final family = switch (p.readingFont) {
-      'georgia' => 'Georgia',
-      'sans' => null,
-      _ => Parchment.serif,
-    };
+    final family = familyOf(p.readingFont);
     // EB Garamond sets small for its size; the others a little larger
     final base = family == Parchment.serif ? 21.0 : 19.0;
     return ReaderStyle(

@@ -72,6 +72,14 @@ flutter run --release        # on a connected iPhone
 
 To install on your own device, copy `dailykjb/ios/Flutter/Signing.xcconfig.example` to `Signing.xcconfig` in the same folder and put your Apple Developer Team ID in it. That file is git-ignored, so your team ID never ends up in a commit. Focus Mode needs the Family Controls capability on your own App IDs (development builds work as soon as it's enabled).
 
+Android needs the Android SDK (API 36) and Java 17. `flutter run` installs a debug build on a phone or emulator. Release builds are signed with an upload key named in `dailykjb/android/key.properties` (git-ignored; see `store/GOOGLE_PLAY.md`), so make your own key and that file first:
+
+```bash
+cd dailykjb
+flutter build appbundle --release    # for Google Play
+flutter build apk --release          # to install directly
+```
+
 App Store screenshots are generated, not hand-made: `tools/screenshots.sh` launches the simulator into staged screens with demo data, `tools/shield_shot.swift` draws the locked-app shield, `tools/frame_screenshots.py` puts each in its device with a caption, and `tools/make_banners.py` makes the product page's header and search results art. The icon and the paper grain are drawn by `tools/make_icon.py` and `tools/make_grain.py`. `tools/widget_shots.swift` draws the widgets on the Mac, light and dark, to look at without a phone. The image scripts need Pillow and numpy:
 
 ```bash
@@ -93,7 +101,7 @@ dailykjb/ios/Runner/                   Screen Time manager and the Apple Intelli
 dailykjb/ios/DailyKJBWidgets/          home screen and lock screen widgets (WidgetKit)
 dailykjb/ios/DeviceActivityMonitorExtension/, ShieldConfiguration/, ShieldAction/
 dailykjb/android/                      Focus Mode on Android (usage access and an overlay)
-store/              App Store listing and screenshots
+store/              App Store and Google Play listings, screenshots and art
 tools/              data, screenshot, icon and upload scripts
 ```
 
@@ -101,7 +109,7 @@ More detail in [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
 
 ## Privacy
 
-Nothing leaves the device. Reading progress, notes, highlights and settings are stored only on the device; Apple Intelligence runs on the device; Focus Mode's choices are tokens the app can't read. See [PRIVACY.md](PRIVACY.md).
+Nothing leaves the device. Reading progress, notes, highlights and settings are stored only on the device; Apple Intelligence runs on the device; Focus Mode's choices are tokens the app can't read. On Android, Focus Mode checks which app is open on the phone and keeps nothing of it. See [PRIVACY.md](PRIVACY.md).
 
 ## License
 

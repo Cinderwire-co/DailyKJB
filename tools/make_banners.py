@@ -5,8 +5,9 @@ Header and Search Results), from the raw iPhone captures:
   header-3840x1646.png       21:9 header
   search-3840x2560.png       3:2 search results
   universal-5244x2950.png    16:9, accepted for both
+  play-feature-1024x500.png  Google Play's feature graphic (with an Android raw folder)
 
-  tools/.venv/bin/python tools/make_banners.py <raw-iphone-dir>
+  tools/.venv/bin/python tools/make_banners.py <raw-iphone-dir> [<raw-android-dir>]
 
 The raw folder is tools/screenshots.sh's iPhone 6.9" output, with shield.png from tools/shield_shot.swift.
 They lead with what Daily KJB is: an accountability Bible reading app.
@@ -28,9 +29,9 @@ HEADLINE = 'The Word first.'
 SUB = "Your chosen apps stay locked each day until you've read. The King James Bible, reading plans and word study, offline and private."
 
 
-def phone(path, width):
-    """A screen in its iPhone (Dynamic Island and all), with its shadow."""
-    dev, rim = device(path, width)
+def phone(path, width, android=False):
+    """A screen in its phone (an iPhone's Dynamic Island, or an Android's camera), with its shadow."""
+    dev, rim = device(path, width, android=android)
     pad = int(width * 0.18)
     out = Image.new('RGBA', (dev.width + 2 * pad, dev.height + 2 * pad), (0, 0, 0, 0))
     shadow = Image.new('RGBA', out.size, (0, 0, 0, 0))
@@ -108,6 +109,25 @@ def search(raw):
     return c
 
 
+def play_feature(raw):
+    """Google Play's 1024 x 500 feature graphic: the words, and the Android shield over a locked app."""
+    W, H = 1024, 500
+    c = background(W, H, False)
+    d = ImageDraw.Draw(c)
+    eb = ImageFont.truetype(CAPS, 17)
+    hl = ImageFont.truetype(CAPS, 54)
+    sb = ImageFont.truetype(SERIF, 22)
+    x, y = 56, 150
+    d.text((x, y), EYEBROW.upper(), font=eb, fill=ACCENT)
+    d.text((x, y + 34), HEADLINE, font=hl, fill=INK)
+    ornament(d, x + 45, y + 112, 90, GOLD)
+    for i, line in enumerate(wrap(d, "Your chosen apps stay locked each day until you've read.", sb, 520)):
+        d.text((x, y + 134 + i * 30), line, font=sb, fill=FADED)
+    for name, px, py in [('01-today.png', 650, 70), ('shield.png', 790, 110)]:
+        place(c, phone(os.path.join(raw, name), 170, android=True), px, py)
+    return c
+
+
 if __name__ == '__main__':
     raw = sys.argv[1]
     os.makedirs(OUT, exist_ok=True)
@@ -115,4 +135,8 @@ if __name__ == '__main__':
                        ('universal-5244x2950.png', universal)]:
         path = os.path.join(OUT, name)
         make(raw).convert('RGB').save(path, optimize=True)
+        print(os.path.relpath(path, ROOT))
+    if len(sys.argv) > 2:
+        path = os.path.join(OUT, 'play-feature-1024x500.png')
+        play_feature(sys.argv[2]).convert('RGB').save(path, optimize=True)
         print(os.path.relpath(path, ROOT))

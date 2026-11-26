@@ -10,7 +10,7 @@ import '../ui/kit.dart';
 import '../ui/theme.dart';
 import '../utils/constants.dart';
 import '../widgets/passcode_dialog.dart';
-import 'focus_screen.dart' show chooseBlockedApps;
+import 'focus_screen.dart' show chooseBlockedApps, requestFocusAccess;
 
 /// First open: a name, a plan, how long, a reminder, a Psalm or Proverb
 /// alongside, light or dark, and Focus Mode if wanted.
@@ -77,7 +77,8 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
       }
       return;
     }
-    if (!await s.requestAuthorization()) {
+    if (!mounted) return;
+    if (!await requestFocusAccess(context)) {
       if (mounted) {
         toast(
           context,
@@ -590,7 +591,7 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
         Text(
           Platform.isIOS
               ? 'Uses Apple\'s Screen Time. DailyKJB never sees which apps you choose.'
-              : 'Needs Usage Access and permission to display over other apps.',
+              : 'Needs usage access and permission to display over other apps. What they see stays on this phone.',
           style: p.small,
         ),
       ],

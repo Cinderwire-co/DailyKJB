@@ -121,7 +121,7 @@ class StudyData {
   static Future<Map<String, StrongsEntry>> strongs() async {
     if (_strongs != null) return _strongs!;
     return _strongsLoading ??= () async {
-      final text = await _gunzip('assets/study/strongs.tsv.gz');
+      final text = await _gunzip('assets/study/strongs.tsvz');
       final out = <String, StrongsEntry>{};
       for (final l in text.split('\n').skip(1)) {
         final x = l.split('\t');
@@ -136,7 +136,7 @@ class StudyData {
 
   static Future<Map<int, List<StrongsWord>>> _wordsOf(int book) =>
       _words[book] ??= () async {
-        final text = await _gunzip('assets/study/words/$book.tsv.gz');
+        final text = await _gunzip('assets/study/words/$book.tsvz');
         final out = <int, List<StrongsWord>>{};
         for (final l in text.split('\n').skip(1)) {
           final x = l.split('\t');
@@ -161,7 +161,7 @@ class StudyData {
 
   static Future<Map<int, List<CrossRef>>> _xrefsOf(int book) =>
       _xrefs[book] ??= () async {
-        final text = await _gunzip('assets/study/xrefs/$book.tsv.gz');
+        final text = await _gunzip('assets/study/xrefs/$book.tsvz');
         final out = <int, List<CrossRef>>{};
         for (final l in text.split('\n').skip(1)) {
           final x = l.split('\t');
@@ -353,7 +353,7 @@ class StudyData {
 
   static Future<Map<String, List<WebsterEntry>>> _websterOf(String letter) =>
       _webster[letter] ??= () async {
-        final text = await _gunzip('assets/study/webster/$letter.tsv.gz');
+        final text = await _gunzip('assets/study/webster/$letter.tsvz');
         final out = <String, List<WebsterEntry>>{};
         for (final l in text.split('\n').skip(1)) {
           final t1 = l.indexOf('\t');

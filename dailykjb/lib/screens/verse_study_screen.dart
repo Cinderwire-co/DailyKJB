@@ -361,7 +361,7 @@ class _VerseStudyScreenState extends State<VerseStudyScreen> {
                     const Padding(
                       padding: EdgeInsets.symmetric(vertical: 18),
                       child: Waiting(
-                        text: 'Writing study notes on this iPhone…',
+                        text: 'Writing study notes on this device…',
                       ),
                     )
                   else
@@ -382,7 +382,7 @@ class _VerseStudyScreenState extends State<VerseStudyScreen> {
                     ),
                   const SizedBox(height: 8),
                   Text(
-                    'Written by Apple Intelligence on this iPhone, from the King James text and Strong\'s. Nothing leaves your phone.',
+                    'Written by Apple Intelligence on this device, from the King James text and Strong\'s. Nothing leaves it.',
                     style: p.small.copyWith(fontSize: 13),
                   ),
                 ],
@@ -495,7 +495,7 @@ class _VerseStudyScreenState extends State<VerseStudyScreen> {
               const SizedBox(width: 6),
               Expanded(
                 child: Text(
-                  'Written on this iPhone by Apple Intelligence. Weigh it against the Bible.',
+                  'Written on this device by Apple Intelligence. Weigh it against the Bible.',
                   style: p.small.copyWith(fontSize: 12.5),
                 ),
               ),
@@ -708,7 +708,7 @@ class _WordSheetState extends State<WordSheet> {
                   ),
                 ),
                 const SizedBox(width: 10),
-                Text('Thinking it through on this iPhone…', style: p.small),
+                Text('Thinking it through on this device…', style: p.small),
               ],
             )
           else
