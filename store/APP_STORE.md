@@ -6,7 +6,7 @@ Everything to enter in App Store Connect, field by field. Character counts are c
 
 1. **Signing.** Put your Apple Developer Team ID in `dailykjb/ios/Flutter/Signing.xcconfig` (copy the `.example` next to it). The file is git-ignored.
 2. **Family Controls.** Focus Mode uses Apple's Screen Time. The app and its three extensions each need Family Controls (Distribution) ticked on their identifiers; all four are. See [Family Controls](#family-controls) below.
-3. **Build numbers.** Every upload needs a higher build number: `version: 1.1.0+23` in `dailykjb/pubspec.yaml` means 1.1.0 (23). Build 22 is uploaded already (without the widgets), so every new upload needs a higher number. The extensions take their version and build number from it.
+3. **Build numbers.** Every upload needs a higher build number: `version: 1.1.0+24` in `dailykjb/pubspec.yaml` means 1.1.0 (24), the latest uploaded (22 had no widgets; 23 has the widgets but clips the verse of the day's buttons on 6.3" iPhones). Every new upload needs a higher number. The extensions take their version and build number from it.
 4. **Upload a build:**
    ```bash
    cd dailykjb && flutter build ipa --release && cd ..
