@@ -146,4 +146,32 @@ Focus Mode uses Apple's Screen Time, and every bundle that touches it needs Appl
 
 To check or add one: developer.apple.com > Certificates, Identifiers & Profiles > Identifiers > the bundle ID > Capabilities (or Additional Capabilities) > Family Controls (Distribution) > Save. A new extension needs the same before its first App Store build.
 
+If App Review's automated check says the app "uses one or more Screen Time APIs but … has not been submitted with the Family Controls entitlement" (1.1.0 (24) got this), first look at what the App Store build carries. Export the archive with `destination` `export` instead of `upload`, unzip the `.ipa`, then for `Payload/Runner.app` and each `PlugIns/*.appex`:
+
+```bash
+codesign -d --entitlements - --xml <bundle> | plutil -p -
+security cms -D -i <bundle>/embedded.mobileprovision | plutil -extract Entitlements xml1 -o - -
+```
+
+The app and the three Screen Time extensions must show `com.apple.developer.family-controls`; the widget links no Screen Time framework and has none. Build 24 had it in all four, so the answer was a reply to App Review (below). `com.apple.developer.family-controls.app-and-website-usage` (iOS 26.4) is for reading usage data (`DeviceActivityReport`, `.approvedWithDataAccess`); Daily KJB doesn't, and its App IDs don't have it, so adding it would only break signing.
+
+Reply to App Review:
+
+```
+Daily KJB 1.1.0 (24) is signed with the Family Controls entitlement, and Family Controls (Distribution) is enabled on every identifier that uses a Screen Time API:
+
+- com.dailykjb.dailyKjb, the app (FamilyControls, ManagedSettings, DeviceActivity)
+- com.dailykjb.dailyKjb.DeviceActivityMonitor (DeviceActivityMonitor extension)
+- com.dailykjb.dailyKjb.ShieldConfiguration (ShieldConfigurationDataSource extension)
+- com.dailykjb.dailyKjb.ShieldAction (ShieldActionDelegate extension)
+
+In the App Store build, each of these four binaries is signed with com.apple.developer.family-controls = true, and each embedded App Store provisioning profile includes it. The fifth bundle, com.dailykjb.dailyKjb.Widgets (WidgetKit), links no Screen Time framework.
+
+The app uses FamilyControls with .individual authorization so the person using the device can keep chosen apps shielded until they have done the day's Bible reading. It does not read app or website usage data (no DeviceActivityReport, no .approvedWithDataAccess), so the App and Website Usage entitlement doesn't apply.
+
+Could you run the check again, or tell us which binary or entitlement it flagged? Steps to try Focus Mode are in the App Review notes. Thank you.
+```
+
+If Apple answers that an extension isn't approved, send the Family Controls (Distribution) request again for that bundle ID: the form takes one bundle ID per request, so the app and each extension need their own.
+
 If an export still says the entitlement is missing after ticking, Xcode is using an App Store profile made before the change. Move the `iOS Team Store Provisioning Profile: com.dailykjb…` files out of `~/Library/Developer/Xcode/UserData/Provisioning Profiles` and export again; Xcode fetches new ones.
